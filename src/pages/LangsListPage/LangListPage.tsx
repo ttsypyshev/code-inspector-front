@@ -17,6 +17,7 @@ const LangListPage = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [isMock, setIsMock] = useState(false);
+    const [imageLoadingStatus, setImageLoadingStatus] = useState<boolean[]>([]);
 
     const searchQuery = useSelector((state: RootState) => state.filter.searchQuery);
     const dispatch = useDispatch();
@@ -66,6 +67,17 @@ const LangListPage = () => {
         dispatch(setSearchQuery(e.target.value));
     };
 
+    const handleImageLoad = (index: number) => {
+        setImageLoadingStatus(prevStatus => {
+            const updatedStatus = [...prevStatus];
+            updatedStatus[index] = true;
+            if (updatedStatus.every(status => status)) {
+                setLoading(false);
+            }
+            return updatedStatus;
+        });
+    };
+
     useEffect(() => {
         fetchData();
     }, [fetchData]);
@@ -81,11 +93,17 @@ const LangListPage = () => {
                 </div>
                 <ul className="service-list">
                     {loading ? (
-                        <div className="loading">Загрузка...</div>
+                        <div className="loading">Загрузка</div>
                     ) : error ? (
                         <div className="error">{error}</div>
                     ) : languages.length > 0 ? (
-                        languages.map(lang => <LanguageItem key={lang.id} lang={lang} />)
+                        languages.map((lang, index) => (
+                            <LanguageItem
+                                key={lang.id}
+                                lang={lang}
+                                onImageLoad={() => handleImageLoad(index)}
+                            />
+                        ))
                     ) : (
                         <div className="error">
                             <h1>Язык не найден</h1>
