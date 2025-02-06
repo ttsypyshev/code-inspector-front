@@ -3,19 +3,18 @@ import { Lang } from "../../modules/types.ts";
 import { Langs_Mock } from "../../modules/mock.ts";
 import "./LangListPage.css";
 import "../../components/global.css";
-// import BackButton from '../../components/BackButton/BackButton.tsx';
-import LanguageItem from '../../components/LanguageItem/LanguageItem.tsx';
+import LanguageItem from "../../components/LanguageItem/LanguageItem.tsx";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 
 const LangListPage = () => {
     const [languages, setLanguages] = useState<Lang[]>([]);
-    const [isMock, setIsMock] = useState(false);
-    const [name, setName] = useState('');
+    const [name, setName] = useState("");
     const [cartCount, setCartCount] = useState(0);
     const [draftID, setDraftID] = useState(0);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const [isMock, setIsMock] = useState(false);
 
     const fetchData = async () => {
         setLoading(true);
@@ -23,10 +22,10 @@ const LangListPage = () => {
 
         try {
             const response = await fetch(`api/info?langname=${name.toLowerCase()}`, { signal: AbortSignal.timeout(5000) });
-            if (!response.ok) throw new Error('Network response failed');
+            if (!response.ok) throw new Error("Ошибка сети");
             const result = await response.json();
 
-            const fetchedLanguages = result.langs.map((lang: any) => ({
+            setLanguages(result.langs.map((lang: any) => ({
                 id: lang.ID,
                 name: lang.Name,
                 shortDescription: lang.ShortDescription,
@@ -37,19 +36,13 @@ const LangListPage = () => {
                 version: lang.Version,
                 list: lang.List,
                 status: lang.Status,
-            }));
-
-            setLanguages(fetchedLanguages);
+            })));
             setCartCount(result.count || 0);
             setDraftID(result.draftID);
             setIsMock(false);
         } catch (error) {
             console.error("Fetch error:", error);
-            setIsMock(true);
-            // setError("Ошибка загрузки данных.");
-            if (!isMock) {
-                loadMockData();
-            }
+            loadMockData();
         } finally {
             setLoading(false);
         }
@@ -57,10 +50,7 @@ const LangListPage = () => {
 
     const loadMockData = () => {
         setIsMock(true);
-        const filteredMocks = Langs_Mock.filter(lang =>
-            lang.name.toLowerCase().includes(name.toLowerCase())
-        );
-        setLanguages(filteredMocks);
+        setLanguages(Langs_Mock.filter(lang => lang.name.toLowerCase().includes(name.toLowerCase())));
     };
 
     const handleSubmit = async (e: FormEvent) => {
@@ -76,40 +66,20 @@ const LangListPage = () => {
         <div className="body">
             <div className="services-container">
                 <div className="header">
-                    {/* Кнопка назад
-                    <BackButton link="/" /> */}
-
-                    {/* Навигационное меню */}
                     <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]} />
-
-                    {/* Строка поиска */}
-                    <SearchField
-                        name={name}
-                        onNameChange={setName}
-                        onSubmit={handleSubmit}
-                    />
-
-                    {/* Состояние корзины */}
+                    <SearchField name={name} onNameChange={setName} onSubmit={handleSubmit} />
                     <CartState cartCount={cartCount} draftID={draftID} />
-
-                    {/* Разделительная линия */}
                     <img className="separator-line" src="../../../img/line.png" alt="separator" />
                 </div>
-
-                {/* Основной контейнер */}
                 <ul className="service-list">
                     {loading ? (
-                        <div className="loading">Загрузка...</div>
+                        <div className="loading">Загрузка</div>
                     ) : error ? (
                         <div className="error">{error}</div>
                     ) : languages.length > 0 ? (
-                        languages.map((lang) => (
-                            <LanguageItem key={lang.id} lang={lang} />
-                        ))
+                        languages.map((lang) => <LanguageItem key={lang.id} lang={lang} />)
                     ) : (
-                        <div className="error">
-                            <h1>Данный язык не найден</h1>
-                        </div>
+                        <div className="error"><h1>Данный язык не найден</h1></div>
                     )}
                 </ul>
             </div>
@@ -117,16 +87,11 @@ const LangListPage = () => {
     );
 };
 
-const SearchField: React.FC<{
-    name: string;
-    onNameChange: (name: string) => void;
-    onSubmit: (e: FormEvent) => void;
-}> = ({ name, onNameChange, onSubmit }) => (
+const SearchField: React.FC<{ name: string; onNameChange: (name: string) => void; onSubmit: (e: FormEvent) => void; }> = ({ name, onNameChange, onSubmit }) => (
     <div className="search-section">
         <form onSubmit={onSubmit}>
             <input
                 type="text"
-                name="langname"
                 className="field-search-text"
                 maxLength={100}
                 placeholder="Поиск..."
@@ -134,7 +99,7 @@ const SearchField: React.FC<{
                 onChange={(e) => onNameChange(e.target.value)}
             />
             <button type="submit" style={{ display: 'none' }}>Поиск</button>
-            <img className="search-icon" src="../../../img/icon-find.png" alt="Иконка поиска" />
+            <img className="search-icon" src="../../../img/icon-find.png" alt="Поиск" />
         </form>
     </div>
 );

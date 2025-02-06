@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Langs_Mock } from '../../modules/mock';
 import { Lang } from '../../modules/types';
-import { useParams } from 'react-router-dom';
-import "./LangPage.css";
-import "../../components/global.css";
-// import BackButton from '../../components/BackButton/BackButton.tsx';
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
+import "./LangPage.css";
+import "../../components/global.css";
 
 const LangPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -67,8 +66,20 @@ const LangPage: React.FC = () => {
         };
     }, [id, isMock]);
 
-    if (loading) return <div className="loading">Загрузка...</div>;
-    if (error) return <div className="error">{error}</div>;
+    if (loading) return <div className="loading">Загрузка</div>;
+    if (error) return (
+        <div className="body">
+            <div className="information-about">
+                <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LANG, path: ROUTES.LANG }]} />
+                <div className="error-container">
+                    <div className="error">
+                        <p>Ошибка: язык не найден</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+    
     if (!langData) return <div className="not-found">Язык не найден</div>;
 
     return (
@@ -105,9 +116,7 @@ const LangDetails: React.FC<{ lang: Lang }> = ({ lang }) => (
         <div className="background-additional-info">
             <div className="text-additional-info">
                 <span className="bold-subtext">{lang.name}</span>
-                <span className="subtext"> — </span>
-                <span className="subtext">{lang.description}</span>
-                <span className="subtext">:</span>
+                <span className="subtext"> — {lang.description}:</span>
             </div>
 
             <FeatureList features={lang.list} />
@@ -131,7 +140,7 @@ const FeatureList: React.FC<{ features: Record<string, string> }> = ({ features 
     <ul className="features-list">
         {Object.entries(features).map(([key, value]) => (
             <li key={key}>
-                <span className="bold-subtext">{key}:</span>
+                <span className="bold-subtext">{key}: </span>
                 <span className="subtext">{value}</span>
             </li>
         ))}

@@ -59,3 +59,55 @@
     min-height: 1800px;
     background-color: var(--background-color-darkest);
 }
+
+/* Centering the error message */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    background-color: var(--background-color-darkest);
+}
+
+/* Error Message */
+.error {
+    text-align: center;
+    background-color: var(--background-color-red);
+    color: var(--text-color-light);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(255, 76, 76, 0.3);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.loading {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color-light);
+    text-align: center;
+  
+    /* Центрирование */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Анимация */
+    display: inline-block;
+}
+  
+.loading::after {
+    content: '...';
+    display: inline-block;
+    animation: dots-animation 1.5s infinite steps(3);
+}
+  
+@keyframes dots-animation {
+    0% { content: '...'; }
+    33% { content: ''; }
+    66% { content: '.'; }
+    100% { content: '..'; }
+}
