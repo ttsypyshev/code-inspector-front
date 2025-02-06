@@ -1,4 +1,7 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/store";
+import { setSearchQuery } from "../../store/slices/filterSlice";
 import { Lang } from "../../modules/types.ts";
 import { Langs_Mock } from "../../modules/mock.ts";
 import "./LangListPage.css";
@@ -9,77 +12,84 @@ import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 
 const LangListPage = () => {
     const [languages, setLanguages] = useState<Lang[]>([]);
-    const [name, setName] = useState("");
     const [cartCount, setCartCount] = useState(0);
     const [draftID, setDraftID] = useState(0);
     const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [isMock, setIsMock] = useState(false);
 
-    const fetchData = async () => {
+    const searchQuery = useSelector((state: RootState) => state.filter.searchQuery);
+    const dispatch = useDispatch();
+
+    const fetchData = useCallback(async () => {
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch(`api/info?langname=${name.toLowerCase()}`, { signal: AbortSignal.timeout(5000) });
+            const response = await fetch(`/api/info?langname=${searchQuery.toLowerCase()}`, {
+                signal: AbortSignal.timeout(5000),
+            });
             if (!response.ok) throw new Error("Ошибка сети");
             const result = await response.json();
 
-            setLanguages(result.langs.map((lang: any) => ({
-                id: lang.ID,
-                name: lang.Name,
-                shortDescription: lang.ShortDescription,
-                description: lang.Description,
-                imgLink: lang.ImgLink,
-                author: lang.Author,
-                year: lang.Year,
-                version: lang.Version,
-                list: lang.List,
-                status: lang.Status,
-            })));
+            setLanguages(
+                result.langs.map((lang: any) => ({
+                    id: lang.ID,
+                    name: lang.Name,
+                    shortDescription: lang.ShortDescription,
+                    description: lang.Description,
+                    imgLink: lang.ImgLink,
+                    author: lang.Author,
+                    year: lang.Year,
+                    version: lang.Version,
+                    list: lang.List,
+                    status: lang.Status,
+                }))
+            );
             setCartCount(result.count || 0);
             setDraftID(result.draftID);
             setIsMock(false);
-        } catch (error) {
-            console.error("Fetch error:", error);
+        } catch (err) {
+            console.error("Fetch error:", err);
             loadMockData();
         } finally {
             setLoading(false);
         }
-    };
+    }, [searchQuery]);
 
-    const loadMockData = () => {
+    const loadMockData = useCallback(() => {
         setIsMock(true);
-        setLanguages(Langs_Mock.filter(lang => lang.name.toLowerCase().includes(name.toLowerCase())));
-    };
+        setLanguages(Langs_Mock.filter(lang => lang.name.toLowerCase().includes(searchQuery.toLowerCase())));
+    }, [searchQuery]);
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        await fetchData();
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setSearchQuery(e.target.value));
     };
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [fetchData]);
 
     return (
         <div className="body">
             <div className="services-container">
                 <div className="header">
                     <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]} />
-                    <SearchField name={name} onNameChange={setName} onSubmit={handleSubmit} />
+                    <SearchField name={searchQuery} onNameChange={handleInputChange} />
                     <CartState cartCount={cartCount} draftID={draftID} />
                     <img className="separator-line" src="../../../img/line.png" alt="separator" />
                 </div>
                 <ul className="service-list">
                     {loading ? (
-                        <div className="loading">Загрузка</div>
+                        <div className="loading">Загрузка...</div>
                     ) : error ? (
                         <div className="error">{error}</div>
                     ) : languages.length > 0 ? (
-                        languages.map((lang) => <LanguageItem key={lang.id} lang={lang} />)
+                        languages.map(lang => <LanguageItem key={lang.id} lang={lang} />)
                     ) : (
-                        <div className="error"><h1>Данный язык не найден</h1></div>
+                        <div className="error">
+                            <h1>Язык не найден</h1>
+                        </div>
                     )}
                 </ul>
             </div>
@@ -87,20 +97,20 @@ const LangListPage = () => {
     );
 };
 
-const SearchField: React.FC<{ name: string; onNameChange: (name: string) => void; onSubmit: (e: FormEvent) => void; }> = ({ name, onNameChange, onSubmit }) => (
+const SearchField: React.FC<{ name: string; onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void }> = ({
+    name,
+    onNameChange,
+}) => (
     <div className="search-section">
-        <form onSubmit={onSubmit}>
-            <input
-                type="text"
-                className="field-search-text"
-                maxLength={100}
-                placeholder="Поиск..."
-                value={name}
-                onChange={(e) => onNameChange(e.target.value)}
-            />
-            <button type="submit" style={{ display: 'none' }}>Поиск</button>
-            <img className="search-icon" src="../../../img/icon-find.png" alt="Поиск" />
-        </form>
+        <input
+            type="text"
+            className="field-search-text"
+            maxLength={100}
+            placeholder="Поиск..."
+            value={name}
+            onChange={onNameChange}
+        />
+        <img className="search-icon" src="../../../img/icon-find.png" alt="Поиск" />
     </div>
 );
 
