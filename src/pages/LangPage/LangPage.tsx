@@ -52,7 +52,7 @@ const LangPage: React.FC = () => {
                 setLangData(mockLang);
                 setError(null);
             } else {
-                setError('Language not found in mock data');
+                setError('Язык не найден');
             }
         };
 
@@ -63,13 +63,13 @@ const LangPage: React.FC = () => {
         }
 
         return () => {
-            setLangData(null); // Cleanup
+            setLangData(null);
         };
     }, [id, isMock]);
 
-    if (loading) return <div className="loading">Loading...</div>;
+    if (loading) return <div className="loading">Загрузка...</div>;
     if (error) return <div className="error">{error}</div>;
-    if (!langData) return <div className="not-found">Language not found</div>;
+    if (!langData) return <div className="not-found">Язык не найден</div>;
 
     return (
         <div className="body">
@@ -81,6 +81,7 @@ const LangPage: React.FC = () => {
                 {/* Навигационное меню */}
                 <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LANG, path: ROUTES.LANG }]} />
 
+                {/* Информация о языке */}
                 <LangDetails lang={langData} />
             </div>
         </div>
@@ -101,11 +102,12 @@ const LangDetails: React.FC<{ lang: Lang }> = ({ lang }) => (
             <LangBasicInfo label="Последняя версия" value={lang.version || "N/A"} number={3} />
         </div>
 
-
         <div className="background-additional-info">
             <div className="text-additional-info">
                 <span className="bold-subtext">{lang.name}</span>
+                <span className="subtext"> — </span>
                 <span className="subtext">{lang.description}</span>
+                <span className="subtext">:</span>
             </div>
 
             <FeatureList features={lang.list} />

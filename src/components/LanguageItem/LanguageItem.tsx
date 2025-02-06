@@ -8,8 +8,8 @@ interface LangItemProps {
 
 const LangItem: React.FC<LangItemProps> = ({ lang }) => {
     const defaultImgLink = "../../../img/default-lang-image.png"; // Путь к изображению по умолчанию
-    const imgSrc = lang.imgLink || defaultImgLink; // Если imgLink пустой, используем defaultImgLink
-    
+    const imgSrc = lang.imgLink ? `http://localhost:9000/code-inspector/${lang.id}.png` : defaultImgLink; // Формируем путь с использованием id
+
     return (
         <li key={lang.id} className="service-item">
             {/* Link to detailed information */}

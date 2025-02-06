@@ -163,3 +163,29 @@ h1 {
   font-weight: var(--font-weight-bold);
   margin: 0;
 }
+
+.loading {
+  font-family: var(--font-family-default);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-light);
+  text-align: center;
+  padding: 20px;
+  
+  /* Анимация */
+  position: relative;
+  display: inline-block;
+}
+
+.loading::after {
+  content: '...';
+  display: inline-block;
+  animation: dots-animation 1.5s infinite steps(3);
+}
+
+@keyframes dots-animation {
+  0% { content: ''; }
+  33% { content: '.'; }
+  66% { content: '..'; }
+  100% { content: '...'; }
+}
