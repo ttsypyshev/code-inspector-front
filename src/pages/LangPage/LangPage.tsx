@@ -71,36 +71,24 @@ const LangPage: React.FC = () => {
         };
     }, [id, isMock]);
 
-    if (loading) return <div className="loading">Загрузка</div>;
-    if (error) return (
-        <div className="body">
-            <div className="information-about">
-                
-                <BreadCrumbs crumbs={breadcrumbsData} />
-                {/* <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LANG, path: ROUTES.LANG }]} /> */}
-                <div className="error-container">
-                    <div className="error">
-                        <p>Ошибка: язык не найден</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-    
-    if (!langData) return <div className="not-found">Язык не найден</div>;
-
     return (
         <div className="body">
             <div className="information-about">
-                {/* <div className="header">
-                    <BackButton link="/info" />
-                </div> */}
-
-                {/* Навигационное меню */}
                 <BreadCrumbs crumbs={breadcrumbsData} />
 
-                {/* Информация о языке */}
-                <LangDetails lang={langData} />
+                {loading ? (
+                    <div className="loading">Загрузка</div>
+                ) : error ? (
+                    <div className="error-container">
+                        <div className="error">
+                            <p>{error}</p>
+                        </div>
+                    </div>
+                ) : langData ? (
+                    <LangDetails lang={langData} />
+                ) : (
+                    <div className="not-found">Язык не найден</div>
+                )}
             </div>
         </div>
     );
@@ -111,7 +99,9 @@ const LangDetails: React.FC<{ lang: Lang }> = ({ lang }) => (
         <div className="title">
             <div className="text-name-lang">{lang.name}</div>
             <div className="text-description-lang">"{lang.shortDescription}"</div>
-            <img className="img-lang" src={lang.imgLink} alt={lang.name} />
+            { lang.imgLink ? (
+                <img className="img-lang" src={lang.imgLink} alt={lang.name} />
+            ) : null}
         </div>
 
         <div className="background-basic-info">
