@@ -43,6 +43,11 @@ const LangPage: React.FC = () => {
         }
     };
 
+    const breadcrumbsData = [
+        { label: ROUTE_LABELS.LIST, path: ROUTES.LIST },
+        { label: langData ? langData.name : "Язык", path: ROUTES.LANG + id }
+    ];
+
     useEffect(() => {
         const loadLangData = () => {
             const idNum = parseInt(id as string, 10);
@@ -70,7 +75,9 @@ const LangPage: React.FC = () => {
     if (error) return (
         <div className="body">
             <div className="information-about">
-                <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LANG, path: ROUTES.LANG }]} />
+                
+                <BreadCrumbs crumbs={breadcrumbsData} />
+                {/* <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LANG, path: ROUTES.LANG }]} /> */}
                 <div className="error-container">
                     <div className="error">
                         <p>Ошибка: язык не найден</p>
@@ -90,7 +97,7 @@ const LangPage: React.FC = () => {
                 </div> */}
 
                 {/* Навигационное меню */}
-                <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LANG, path: ROUTES.LANG }]} />
+                <BreadCrumbs crumbs={breadcrumbsData} />
 
                 {/* Информация о языке */}
                 <LangDetails lang={langData} />

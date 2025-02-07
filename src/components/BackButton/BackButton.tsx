@@ -8,7 +8,7 @@ interface BackButtonProps {
 const BackButton: React.FC<BackButtonProps> = ({ link }) => {
   return (
     <a href={link} className="background-btn-back">
-      <img className="icon-btn-back" src="../../../img/icon-btn-back.png" alt="Back" />
+      <img className="icon-btn-back" src="img/icon-btn-back.png" alt="Back" />
     </a>
   );
 };

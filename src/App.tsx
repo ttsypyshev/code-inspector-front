@@ -7,7 +7,9 @@ import { ROUTES } from "./Routes";
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/code-inspector-front">
+        {/* <BrowserRouter basename="/code-inspector"> */}
+        {/* <BrowserRouter> */}
             <Routes>
                 <Route path={ROUTES.HOME} element={<MainPage/>} />
                 <Route path={ROUTES.LIST} element={<LangListPage/>} />

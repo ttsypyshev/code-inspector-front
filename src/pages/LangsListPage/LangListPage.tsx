@@ -16,7 +16,9 @@ const LangListPage = () => {
     const [draftID, setDraftID] = useState(0);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+    // @ts-ignore
     const [isMock, setIsMock] = useState(false);
+    // @ts-ignore
     const [imageLoadingStatus, setImageLoadingStatus] = useState<boolean[]>([]);
 
     const searchQuery = useSelector((state: RootState) => state.filter.searchQuery);
@@ -89,7 +91,7 @@ const LangListPage = () => {
                     <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]} />
                     <SearchField name={searchQuery} onNameChange={handleInputChange} />
                     <CartState cartCount={cartCount} draftID={draftID} />
-                    <img className="separator-line" src="../../../img/line.png" alt="separator" />
+                    <img className="separator-line" src="img/line.png" alt="separator" />
                 </div>
                 <ul className="service-list">
                     {loading ? (
@@ -128,7 +130,7 @@ const SearchField: React.FC<{ name: string; onNameChange: (e: React.ChangeEvent<
             value={name}
             onChange={onNameChange}
         />
-        <img className="search-icon" src="../../../img/icon-find.png" alt="Поиск" />
+        <img className="search-icon" src="img/icon-find.png" alt="Поиск" />
     </div>
 );
 
@@ -136,12 +138,12 @@ const CartState: React.FC<{ cartCount: number; draftID: number }> = ({ cartCount
     <div className="file-count-section">
         {cartCount !== 0 ? (
             <a href={`/project/${draftID}`} className="file-count">
-                <img className="file-count-icon" src="../../../img/icon-count-files.png" alt="files" />
+                <img className="file-count-icon" src="img/icon-count-files.png" alt="files" />
                 <div className="file-count-text">{cartCount}</div>
             </a>
         ) : (
             <div className="file-count">
-                <img className="file-count-icon" src="../../../img/icon-count-files.png" alt="files" />
+                <img className="file-count-icon" src="img/icon-count-files.png" alt="files" />
                 <div className="file-count-text">{cartCount}</div>
             </div>
         )}
