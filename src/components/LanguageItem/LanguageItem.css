@@ -153,4 +153,14 @@
     font-size: var(--font-size-sm);
     max-width: 70%;
   }
+
+  .add-to-project-button-text {
+    font-size: var(--font-size-sm);
+  }
+
+  .service-image {
+    top: 4%;
+    min-width: 50px; /* Ограничиваем минимальный размер */
+    min-height: 50px; /* Ограничиваем минимальный размер */
+  }
 }

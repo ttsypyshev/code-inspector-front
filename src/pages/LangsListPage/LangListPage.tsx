@@ -87,12 +87,10 @@ const LangListPage = () => {
     return (
         <div className="body">
             <div className="services-container">
-                <div className="header">
-                    <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]} />
-                    <SearchField name={searchQuery} onNameChange={handleInputChange} />
-                    <CartState cartCount={cartCount} draftID={draftID} />
-                    <img className="separator-line" src="img/line.png" alt="separator" />
-                </div>
+                <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]} />
+                <SearchField name={searchQuery} onNameChange={handleInputChange} />
+                <CartState cartCount={cartCount} draftID={draftID} />
+                <img className="separator-line" src="img/line.png" alt="separator" />
                 <ul className="service-list">
                     {loading ? (
                         <div className="loading">Загрузка</div>

@@ -84,7 +84,7 @@
 /* Separator Line */
 .separator-line {
   position: absolute;
-  top: 280px;
+  top: 320px;
   left: 260px;
   width: 1432px;
   height: 2px;
@@ -117,7 +117,7 @@
 .service-list {
   display: flex;
   flex-wrap: wrap;
-  top: 370px;
+  top: 300px;
   gap: 30px;
   margin: 0 auto;
   padding: 0;
@@ -137,11 +137,22 @@ h1 {
 
 /* Мобильная версия (ширина экрана до 768px) */
 @media (max-width: 768px) {
-  .header {
-    max-width: 600px;
+  .search-section {
+    width: 70%;
+    left: 5%;
   }
 
-  .service-list {
-    gap: 20px;
+  .file-count-section {
+    left: 77%;
+  }
+
+  .separator-line {
+    width: 80%;
+    left: 10%;
+    top: 290px;
+  }
+
+  .service-list{
+    top: 250px;
   }
 }
