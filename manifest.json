@@ -1,0 +1,28 @@
+{
+    "name": "Code Inspector",
+    "short_name": "CInspector",
+    "start_url": "/code-inspector-front/",
+    "display": "standalone",
+    "background_color": "#0d1117",
+    "theme_color": "#212830",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "./icon.svg",
+        "type": "image/png", "sizes": "150x150"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "./screenshot_pc.png",
+        "sizes": "1910x899",
+        "type": "image/png",
+        "form_factor": "wide"
+      },
+      {
+        "src": "./screenshot_mobile.png",
+        "sizes": "321x572",
+        "type": "image/png"
+      }
+    ]
+  }
