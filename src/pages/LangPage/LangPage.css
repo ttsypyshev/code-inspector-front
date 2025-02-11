@@ -3,6 +3,8 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Header Styles */
@@ -121,7 +123,8 @@
 /* Additional Info Section */
 .background-additional-info {
   position: absolute;
-  width: 1285px;
+  width: 100%;
+  max-width: 1285px;
   margin: 20px auto;
   top: 390px;
   left: 312px;
@@ -175,4 +178,38 @@
 
 .subtext {
   font-weight: var(--font-weight-regular);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title, .background-basic-info {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .text-name-lang, .text-description-lang {
+    width: 90%;
+  }
+
+  .text-description-lang {
+    font-size: var(--font-size);
+  }
+
+  .img-lang {
+    position: relative;
+    display: block;
+    margin: 10px auto;
+  }
+
+  .background-basic-info {
+    top: 420px;
+  }
+
+  .background-additional-info {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 640px;
+  }
 }
