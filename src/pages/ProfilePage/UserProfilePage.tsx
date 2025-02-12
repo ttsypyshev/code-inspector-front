@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './UserProfilePage.css';
-import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs.tsx";
+import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store.ts';
@@ -77,7 +77,13 @@ const UserProfilePage: React.FC = () => {
 	return (
 		<div className="body">
 			<div className="user-profile-container">
-				<BreadCrumbs crumbs={breadcrumbsData} />
+				<Header
+							showBreadCrumbs={true}
+							showBurgerMenu={true}
+							crumbs={breadcrumbsData}
+							showProfileMenu={false}
+							showHistory={false}
+				/>
 				<h1 className="profile-title">Личный кабинет</h1>
 
 				{error && <div className="error-message">{error}</div>}

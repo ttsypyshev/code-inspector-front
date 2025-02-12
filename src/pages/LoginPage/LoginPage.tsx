@@ -1,8 +1,8 @@
-import "./Login.css";
+import "./LoginPage.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setUser, setToken } from "../../store/slices/userSlice";
+import { setUser, setToken } from "../../store/slices/userSlice.ts";
 import { ROUTES } from "../../Routes.tsx";
 
 const Login = () => {

@@ -1,0 +1,65 @@
+@media (max-width: 768px) {
+    .breadcrumbs-container,
+    .profile-menu-container,
+    .history-button-container {
+        display: none; /* Скрываем несколько кнопок или контейнеров */
+    }
+}
+
+@media (min-width: 769px) {
+    .burger-menu-container {
+        display: none; /* Скрываем на десктопе */
+    }
+}
+
+
+.header {
+    width: 100%;
+    background-color: var(--background-color-darker); /* Используем более темный цвет */
+    display: table;
+    padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.header-table {
+    display: table;
+    width: 100%;
+    table-layout: auto;
+    border-spacing: 20px 0;
+}
+
+.header-table-row {
+    display: table-row;
+}
+
+/* Убираем пустые блоки, если элементы скрыты */
+.breadcrumbs-container:empty,
+.burger-menu-container:empty,
+.profile-menu-container:empty,
+.history-button-container:empty {
+    display: none;
+}
+
+.history-button {
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-light);
+    background-color: var(--background-color-dark);
+    padding: 10px 15px;
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.3s ease-in-out;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
+.history-button:hover {
+    color: var(--background-color-gray-light);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}

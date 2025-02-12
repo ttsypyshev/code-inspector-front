@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/HomePage/HomePage"
 import LangListPage from "./pages/LangsListPage/LangListPage"
 import LangPage from "./pages/LangPage/LangPage";
-import Register from "./pages/RegistrationPage/Register";
-import Login from "./pages/LoginPage/Login";
-import ApplicationsPage from "./pages/ProjectsPage/Projects";
+import Register from "./pages/RegistrationPage/RegisterPage";
+import Login from "./pages/LoginPage/LoginPage";
+import ApplicationsPage from "./pages/ProjectsPage/ProjectsPage";
 import UserProfilePage from "./pages/ProfilePage/UserProfilePage";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
 import { ROUTES } from "./Routes";
@@ -34,7 +34,7 @@ function App() {
                 <Route path={ROUTES.AUTH} element={<Login/>} />
                 <Route path={ROUTES.PROJECTS} element={<ApplicationsPage/>} />
                 <Route path={ROUTES.PROFILE} element={<UserProfilePage/>} />
-                <Route path={ROUTES.PROJECT} element={<ProjectPage/>} />
+                <Route path={`${ROUTES.PROJECT}:id`} element={<ProjectPage/>} />
             </Routes>
         </BrowserRouter>
     );

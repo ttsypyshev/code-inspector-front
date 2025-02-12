@@ -7,7 +7,7 @@ import { Langs_Mock } from "../../modules/mock.ts";
 import "./LangListPage.css";
 import "../../components/global.css";
 import LanguageItem from "../../components/LanguageItem/LanguageItem.tsx";
-import Header from "../../components/Header/header.tsx";
+import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import { Link } from 'react-router-dom';
 

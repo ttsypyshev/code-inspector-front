@@ -3,11 +3,14 @@
     --font-family-mono: PT Mono, monospace;
 
     --background-color-darkest: #0d1117;
+    --background-color-darker: #161b22; /* Тёмнее, чем темный */
     --background-color-dark: #212830;
+    --background-color-medium-dark: #2f363d; /* Темно-серый с оттенком */
     --background-color-medium: #6f6f6f;
     --background-color-muted: #d9d9d9;
     --background-color-light: #ababab;
     --background-color-lightest: #cecece;
+    --background-color-very-light: #e5e5e5; /* Почти белый */    
 
     --background-color-code: #151b23;
     --background-color-green: #28a745;

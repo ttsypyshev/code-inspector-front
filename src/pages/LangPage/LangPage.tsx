@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Langs_Mock } from '../../modules/mock';
 import { Lang } from '../../modules/types';
-import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs.tsx";
-import { BurgerMenu } from "../../components/BurgerMenu/BurgerMenu.tsx";
+import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import "./LangPage.css";
 import "../../components/global.css";
@@ -75,9 +74,13 @@ const LangPage: React.FC = () => {
     return (
         <div className="body">
             <div className="information-about">
-                <BreadCrumbs crumbs={breadcrumbsData} />
-                <BurgerMenu />
-
+                <Header
+                        showBreadCrumbs={true}
+                        showBurgerMenu={true}
+                        crumbs={breadcrumbsData}
+                        showProfileMenu={false}
+                        showHistory={false}
+                />
                 {loading ? (
                     <div className="loading">Загрузка</div>
                 ) : error ? (

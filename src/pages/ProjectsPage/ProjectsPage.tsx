@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../store/store.ts";
 import { Link } from "react-router-dom";
-import './Projects.css';
-import Header from "../../components/Header/header.tsx";
+import './ProjectsPage.css';
+import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 
 interface Project {
@@ -78,13 +78,18 @@ const ProjectsPage = () => {
         fetchProjects();
     }, [token, startDate, endDate, status]);
 
+    const breadcrumbsData = [
+        { label: ROUTE_LABELS.LIST, path: ROUTES.LIST },
+        { label: ROUTE_LABELS.PROJECTS, path: ROUTES.PROJECT }
+    ];
+
     return (
         <div className="body">
             <div className="page-body">
                 <Header
                     showBreadCrumbs={true}
                     showBurgerMenu={true}
-                    crumbs={[{ label: ROUTE_LABELS.PROJECTS, path: ROUTES.PROJECTS }]}
+                    crumbs={breadcrumbsData}
                     showProfileMenu={false}
                     showHistory={false}
                 />

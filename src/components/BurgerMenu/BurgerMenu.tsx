@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./BurgerMenu.css";
 import { Link } from 'react-router-dom';
+import { ROUTES } from "../../Routes.tsx";
 
 export const BurgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,8 +14,10 @@ export const BurgerMenu = () => {
       {isOpen && (
         <nav className="burger-menu">
             <ul>
-                <li><Link to={`/`} className="menu-button">Главная</Link></li>
-                <li><Link to={`/info`} className="menu-button">Языки</Link></li>
+                <li><Link to={ROUTES.HOME} className="menu-button">Главная</Link></li>
+                <li><Link to={ROUTES.LIST} className="menu-button">Языки</Link></li>
+                <li><Link to={ROUTES.PROJECTS} className="menu-button">История</Link></li>
+                <li><Link to={ROUTES.PROFILE} className="menu-button">Профиль</Link></li>
             </ul>
         </nav>
       )}
