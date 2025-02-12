@@ -1,0 +1,107 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color-darkest);
+    font-family: var(--font-family-default);
+}
+
+.register-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: var(--background-color-dark);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.register-title {
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color-light);
+    margin-bottom: 20px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--background-color-lightest);
+    color: var(--text-color-dark);
+}
+
+.register-button {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    padding: 12px;
+    color: var(--text-color-light);
+    background-color: var(--background-color-green);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.register-button:hover {
+    background-color: var(--background-color-light);
+    transform: translateY(-3px);
+}
+
+.register-button:active {
+    background-color: var(--background-color-medium);
+    transform: translateY(0);
+}
+
+/* Стили для ссылки на авторизацию */
+.register-login-text {
+    margin-top: 15px;
+    font-size: var(--font-size-sm);
+    color: var(--text-color-muted);
+}
+
+.login-link {
+    color: var(--text-color-light);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.login-link:hover {
+    color: var(--background-color-green);
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .register-box {
+        padding: 20px;
+    }
+
+    .register-title {
+        font-size: var(--font-size-lg);
+    }
+
+    .register-input {
+        font-size: var(--font-size-xs);
+        padding: 10px;
+    }
+
+    .register-button {
+        font-size: var(--font-size-xs);
+        padding: 10px;
+    }
+
+    .register-login-text {
+        font-size: var(--font-size-xs);
+    }
+}

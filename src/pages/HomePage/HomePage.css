@@ -3,20 +3,17 @@
     justify-content: center;
     align-items: center;
     width: 100vw;
-    min-width: 50%;
     height: 100vh;
     background-color: var(--background-color-darkest);
     color: var(--text-color-light);
     font-family: var(--font-family-default);
     text-align: center;
-    margin: 0;
     padding: 20px;
     box-sizing: border-box;
 }
 
 .home-body {
     width: 100%;
-    min-width: 165px;
     max-width: 800px;
     padding: 40px;
     background-color: var(--background-color-dark);
@@ -27,39 +24,52 @@
 
 .home-title {
     font-size: var(--font-size-title);
-    line-height: var(--line-height-title);
-    font-weight: var(--font-weight-bold);
     margin-bottom: 20px;
-    color: var(--text-color-light);
 }
 
 .home-desc {
     font-size: var(--font-size-lg);
-    line-height: var(--line-height-large);
-    font-weight: var(--font-weight-regular);
-    color: var(--text-color-muted);
     margin-bottom: 30px;
+    color: var(--text-color-muted);
 }
 
-.btn-resume {
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-resume, .btn-login, .btn-register {
     display: inline-block;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
     padding: 15px 25px;
-    color: var(--text-color-light);
-    background-color: var(--background-color-green);
     border: none;
     border-radius: var(--border-radius-sm);
-    text-decoration: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    width: 200px;
 }
 
-.btn-resume:hover {
+.btn-resume {
+    background-color: var(--background-color-green);
+}
+
+.btn-login {
+    background-color: var(--background-color-blue);
+}
+
+.btn-register {
+    background-color: var(--background-color-orange);
+}
+
+.btn-resume:hover, .btn-login:hover, .btn-register:hover {
     background-color: var(--background-color-light);
     transform: translateY(-3px);
 }
 
-.btn-resume:active {
+.btn-resume:active, .btn-login:active, .btn-register:active {
     background-color: var(--background-color-medium);
     transform: translateY(0);
 }
@@ -69,18 +79,14 @@
     .home-body {
         padding: 20px;
     }
-    
-    .home-title {
-        font-size: var(--font-size);
-        line-height: var(--line-height);
+
+    .button-group {
+        gap: 10px;
     }
-    
-    .home-desc {
-        font-size: var(--font-size-sm);
-    }
-    
-    .btn-resume {
+
+    .btn-resume, .btn-login, .btn-register {
         font-size: var(--font-size-xs);
         padding: 10px 20px;
+        width: 180px;
     }
 }

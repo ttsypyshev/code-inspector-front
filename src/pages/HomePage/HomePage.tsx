@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "./HomePage.css";
 import "../../components/global.css";
+import { ROUTES } from "../../Routes.tsx";
 
 const MainPage: React.FC = () => {
     return (
@@ -12,11 +13,23 @@ const MainPage: React.FC = () => {
                 <p className="home-desc">
                     Выберите языки, добавьте код, и вскоре преподаватель по достоинству оценит его.
                 </p>
-                <Link to="/info">
-                    <Button variant="outline-light" className="btn-resume">
-                        Продолжить
-                    </Button>
-                </Link>
+                <div className="button-group">
+                    <Link to={ROUTES.LIST}>
+                        <Button variant="outline-light" className="btn-resume">
+                            Продолжить как гость
+                        </Button>
+                    </Link>
+                    <Link to={ROUTES.AUTH}>
+                        <Button variant="outline-light" className="btn-login">
+                            Войти
+                        </Button>
+                    </Link>
+                    <Link to={ROUTES.REG}>
+                        <Button variant="outline-light" className="btn-register">
+                            Регистрация
+                        </Button>
+                    </Link>
+                </div>
             </div>
         </main>
     );

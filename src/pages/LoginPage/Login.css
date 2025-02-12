@@ -1,0 +1,107 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color-darkest);
+    font-family: var(--font-family-default);
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: var(--background-color-dark);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.login-title {
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color-light);
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--background-color-lightest);
+    color: var(--text-color-dark);
+}
+
+.login-button {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    padding: 12px;
+    color: var(--text-color-light);
+    background-color: var(--background-color-green);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: var(--background-color-light);
+    transform: translateY(-3px);
+}
+
+.login-button:active {
+    background-color: var(--background-color-medium);
+    transform: translateY(0);
+}
+
+/* Стили для ссылки на регистрацию */
+.login-register-text {
+    margin-top: 15px;
+    font-size: var(--font-size-sm);
+    color: var(--text-color-muted);
+}
+
+.register-link {
+    color: var(--text-color-light);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.register-link:hover {
+    color: var(--background-color-green);
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .login-box {
+        padding: 20px;
+    }
+
+    .login-title {
+        font-size: var(--font-size-lg);
+    }
+
+    .login-input {
+        font-size: var(--font-size-xs);
+        padding: 10px;
+    }
+
+    .login-button {
+        font-size: var(--font-size-xs);
+        padding: 10px;
+    }
+
+    .login-register-text {
+        font-size: var(--font-size-xs);
+    }
+}
