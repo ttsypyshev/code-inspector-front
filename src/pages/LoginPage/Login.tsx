@@ -1,30 +1,54 @@
-import "./Login.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setUser, setToken } from "../../store/slices/userSlice";
 import { ROUTES } from "../../Routes.tsx";
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    });
+    const [formData, setFormData] = useState({ username: "", password: "" });
     const [error, setError] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); // Хук для редиректа
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        // Пример обработки ошибки
-        if (formData.email !== "test@example.com" || formData.password !== "password123") {
-            setError("Неверный email или пароль");
-            return;
+    
+        try {
+            // Запрос на сервер для получения токена
+            const response = await fetch("/api/user/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    login: formData.username,  // Используем login вместо username
+                    password: formData.password,
+                }),
+                signal: AbortSignal.timeout(5000), // Таймаут для запроса
+            });
+    
+            if (!response.ok) {
+                throw new Error("Неверный юзернейм или пароль");
+            }
+    
+            // Если запрос успешен, получаем токен и данные пользователя
+            const data = await response.json();
+            const { access_token, token_type } = data;
+    
+            // Сохраняем токен в Redux
+            dispatch(setToken(`${token_type} ${access_token}`));
+            dispatch(setUser({ username: formData.username, name: "Test User" }));
+    
+            // Редирект на другую страницу (например, на главную)
+            navigate(ROUTES.LIST);  // Замените ROUTES.HOME на нужный маршрут
+
+        } catch (error) {
+            setError("Неверный юзернейм или пароль");
         }
-        
-        setError("");
-        console.log("User Logged In:", formData);
     };
 
     return (
@@ -34,10 +58,10 @@ const Login = () => {
                 {error && <p className="login-error">{error}</p>}
                 <form onSubmit={handleSubmit} className="login-form">
                     <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
+                        type="text"
+                        name="username" // Изменено на username
+                        placeholder="Юзернейм"
+                        value={formData.username}  // Используем username
                         onChange={handleChange}
                         className="login-input"
                         required

@@ -118,7 +118,7 @@
 .service-list {
   display: flex;
   flex-wrap: wrap;
-  top: 300px;
+  top: 350px;
   gap: 30px;
   margin: 0 auto;
   padding: 0;
