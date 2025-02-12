@@ -7,7 +7,9 @@
 - **[Backend](https://github.com/ttsypyshev/code-inspector-back)** – серверная часть проекта
 
 ## Ветки
-- **[SPA](https://github.com/ttsypyshev/code-inspector-front/tree/spa)** – разработка базового SPA на React
+- **[SPA](https://github.com/ttsypyshev/code-inspector-front/tree/spa)** – разработка базового `SPA` на React
+- **[Redux](https://github.com/ttsypyshev/code-inspector-front/tree/redux)**  – добавление менеджера состояний `Redux Toolkit`
+- **[Pwa](https://github.com/ttsypyshev/code-inspector-front/tree/pwa)**  – добавление возможности работы в режиме `PWA` + `GitHub Pages`
 
 ## Установка и запуск
 
