@@ -71,7 +71,7 @@
 }
 
 /* Error Message */
-.error {
+.error-message {
     text-align: center;
     background-color: var(--background-color-red);
     color: var(--text-color-light);

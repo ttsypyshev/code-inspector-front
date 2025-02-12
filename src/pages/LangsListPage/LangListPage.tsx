@@ -9,11 +9,13 @@ import "../../components/global.css";
 import LanguageItem from "../../components/LanguageItem/LanguageItem.tsx";
 import Header from "../../components/Header/header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
+import { Link } from 'react-router-dom';
 
 const LangListPage = () => {
     const [languages, setLanguages] = useState<Lang[]>([]);
     const [cartCount, setCartCount] = useState(0);
     const [draftID, setDraftID] = useState(0);
+    const token = useSelector((state: RootState) => state.user.token);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     // @ts-ignore
@@ -29,7 +31,14 @@ const LangListPage = () => {
         setError(null);
 
         try {
+            const headers: HeadersInit = {};
+            if (token) {
+                headers['Authorization'] = `${token}`;
+            }
+
             const response = await fetch(`/api/info?langname=${searchQuery.toLowerCase()}`, {
+                method: 'GET',
+                headers,
                 signal: AbortSignal.timeout(5000),
             });
             if (!response.ok) throw new Error("Ошибка сети");
@@ -68,6 +77,10 @@ const LangListPage = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setSearchQuery(e.target.value));
     };
+
+    const handleAddToCart = () => {
+        setCartCount(prevCount => prevCount + 1);
+    };    
 
     const handleImageLoad = (index: number) => {
         setImageLoadingStatus(prevStatus => {
@@ -108,6 +121,7 @@ const LangListPage = () => {
                                 key={lang.id}
                                 lang={lang}
                                 onImageLoad={() => handleImageLoad(index)}
+                                onAddToCart={handleAddToCart}
                             />
                         ))
                     ) : (
@@ -141,10 +155,10 @@ const SearchField: React.FC<{ name: string; onNameChange: (e: React.ChangeEvent<
 const CartState: React.FC<{ cartCount: number; draftID: number }> = ({ cartCount, draftID }) => (
     <div className="file-count-section">
         {cartCount !== 0 ? (
-            <a href={`/project/${draftID}`} className="file-count">
+            <Link to={`${ROUTES.PROJECT}${draftID}`} className="file-count">
                 <img className="file-count-icon" src="img/icon-count-files.png" alt="files" />
                 <div className="file-count-text">{cartCount}</div>
-            </a>
+            </Link>
         ) : (
             <div className="file-count">
                 <img className="file-count-icon" src="img/icon-count-files.png" alt="files" />

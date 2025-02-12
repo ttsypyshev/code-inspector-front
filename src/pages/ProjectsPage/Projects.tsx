@@ -80,62 +80,80 @@ const ProjectsPage = () => {
 
     return (
         <div className="body">
-            <Header
-                showBreadCrumbs={true}
-                showBurgerMenu={true}
-                crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]}
-                showProfileMenu={false}
-                showHistory={false}
-            />
-            <h1>Список заявок</h1>
-            <div className="filters">
-                <div className="filter-item">
-                    <label>Дата начала:</label>
-                    <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+            <div className="page-body">
+                <Header
+                    showBreadCrumbs={true}
+                    showBurgerMenu={true}
+                    crumbs={[{ label: ROUTE_LABELS.PROJECTS, path: ROUTES.PROJECTS }]}
+                    showProfileMenu={false}
+                    showHistory={false}
+                />
+                <h1 className="page-title">Список заявок</h1>
+                <div className="filter-container">
+                    <div className="filter-item">
+                        <label className="filter-label">Дата начала:</label>
+                        <input
+                            type="date"
+                            className="filter-input"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                    </div>
+                    <div className="filter-item">
+                        <label className="filter-label">Дата окончания:</label>
+                        <input
+                            type="date"
+                            className="filter-input"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
+                    </div>
+                    <div className="filter-item">
+                        <label className="filter-label">Статус:</label>
+                        <select
+                            className="filter-select"
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                        >
+                            <option value="draft">Черновик</option>
+                            <option value="deleted">Удалёно</option>
+                            <option value="completed">Принято</option>
+                            <option value="rejected">Отклонено</option>
+                            <option value="all">Все</option>
+                        </select>
+                    </div>
                 </div>
-                <div className="filter-item">
-                    <label>Дата окончания:</label>
-                    <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-                </div>
-                <div className="filter-item">
-                    <label>Статус:</label>
-                    <select value={status} onChange={(e) => setStatus(e.target.value)}>
-                        <option value="draft">Черновик</option>
-                        <option value="deleted">Удалёно</option>
-                        <option value="completed">Принято</option>
-                        <option value="rejected">Отклонено</option>
-                        <option value="all">Все</option>
-                    </select>
-                </div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Дата создания</th>
-                        <th>Дата формирования</th>
-                        <th>Дата завершения</th>
-                        <th>Статус</th>
-                        <th>Модератор</th>
-                        <th>Комментарий</th>
-                        <th>Ссылка</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {projects.map((project) => (
-                        <tr key={project.id}>
-                            <td>{project.CreationTime}</td>
-                            <td>{project.FormationTime}</td>
-                            <td>{project.CompletionTime}</td>
-                            <td>{project.Status}</td>
-                            <td>{project.Moderator}</td>
-                            <td>{project.ModeratorComment}</td>
-                            <td>
-                                <Link to={`${ROUTES.PROJECT}${project.id}`}>Перейти</Link>
-                            </td>
+                <table className="table">
+                    <thead className="table-header">
+                        <tr>
+                            <th className="table-header-cell">Дата создания</th>
+                            <th className="table-header-cell">Дата формирования</th>
+                            <th className="table-header-cell">Дата завершения</th>
+                            <th className="table-header-cell">Статус</th>
+                            <th className="table-header-cell">Модератор</th>
+                            <th className="table-header-cell">Комментарий</th>
+                            <th className="table-header-cell">Ссылка</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {projects.map((project) => (
+                            <tr className="table-row" key={project.id}>
+                                <td className="table-cell">{project.CreationTime}</td>
+                                <td className="table-cell">{project.FormationTime}</td>
+                                <td className="table-cell">{project.CompletionTime}</td>
+                                <td className="table-cell">{project.Status}</td>
+                                <td className="table-cell">{project.Moderator}</td>
+                                <td className="table-cell">{project.ModeratorComment}</td>
+                                <td className="table-cell">
+                                    <Link className="link" to={`${ROUTES.PROJECT}${project.id}`}>
+                                        Перейти
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

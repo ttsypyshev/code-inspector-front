@@ -82,7 +82,7 @@ const LangPage: React.FC = () => {
                     <div className="loading">Загрузка</div>
                 ) : error ? (
                     <div className="error-container">
-                        <div className="error">
+                        <div className="error-message">
                             <p>{error}</p>
                         </div>
                     </div>

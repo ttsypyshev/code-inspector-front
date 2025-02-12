@@ -52,11 +52,11 @@
     width: 200px;
 }
 
-.btn-resume {
+.btn-login {
     background-color: var(--background-color-green);
 }
 
-.btn-login {
+.btn-resume {
     background-color: var(--background-color-blue);
 }
 

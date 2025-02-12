@@ -22,6 +22,14 @@ export const ProfileMenu = () => {
         },
       });
 
+      // Если код ответа 401, это не ошибка, можно удалить данные
+      if (response.status === 401) {
+        // Удаляем данные из localStorage и state, потому что сессия уже завершена
+        dispatch(logout());
+        navigate(ROUTES.HOME);
+        return;
+      }
+
       if (!response.ok) {
         throw new Error("Ошибка при выходе");
       }

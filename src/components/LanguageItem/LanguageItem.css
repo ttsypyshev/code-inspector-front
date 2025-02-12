@@ -102,12 +102,12 @@
   margin: 25px; /* Добавляем отступ */
 }
 
-.add-to-project-button-background.success {
-  animation: successAnimation 3s forwards;
+.add-to-project-button-background.success-btn {
+  animation: successAnimation 2s forwards;
 }
 
-.add-to-project-button-background.error {
-  animation: errorAnimation 3s forwards;
+.add-to-project-button-background.error-btn {
+  animation: errorAnimation 2s forwards;
 }
 
 .add-to-project-button-background:hover {

@@ -1,25 +1,26 @@
 /* Projects Page Styles */
-.body {
+.page-body {
     font-family: var(--font-family-default);
     color: var(--text-color-light);
     background-color: var(--background-color-darkest);
     padding: 20px;
     min-height: 100vh;
+    margin-top: 120px;
 }
 
-h1 {
+.page-title {
     font-size: var(--font-size-title);
     text-align: center;
     margin-bottom: 20px;
 }
 
 /* Filters */
-label {
+.filter-label {
     font-size: var(--font-size);
     margin-right: 10px;
 }
 
-input[type="date"], select {
+.filter-input, .filter-select {
     padding: 10px;
     margin: 5px;
     border-radius: var(--border-radius);
@@ -29,7 +30,7 @@ input[type="date"], select {
 }
 
 /* Table Styles */
-table {
+.table {
     width: 100%;
     margin-top: 20px;
     background-color: var(--background-color-dark);
@@ -39,38 +40,38 @@ table {
 }
 
 
-thead {
+.table-header {
     background-color: var(--background-color-medium);
 }
 
-th, td {
+.table-cell, .table-header-cell {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid var(--background-color-light);
 }
 
-th {
+.table-header-cell {
     font-size: var(--font-size-sm);
 }
 
-tbody tr:hover {
+.table-row:hover {
     background-color: var(--background-color-light);
     color: var(--text-color-dark);
 }
 
 /* Link Styles */
-a {
+.link {
     text-decoration: none;
     color: var(--background-color-green);
     font-weight: var(--font-weight-bold);
 }
 
-a:hover {
+.link:hover {
     text-decoration: underline;
 }
 
 /* Filter Layout */
-.filters {
+.filter-container {
     display: flex;
     flex-wrap: wrap; /* Позволяет элементам оборачиваться на мобильных устройствах */
     gap: 20px; /* Добавляет пространство между фильтрами */
@@ -79,16 +80,15 @@ a:hover {
 
 .filter-item {
     display: flex;
-    flex-direction: column; /* Элементы внутри filter-item будут располагаться вертикально */
+    flex-direction: column; /* Elements inside filter-item will be arranged vertically */
 }
 
 /* Desktop view: Filters displayed horizontally, but not stretched */
 @media screen and (min-width: 768px) {
-    /* Фильтры отображаются горизонтально */
-    .filters {
-        flex-direction: row; /* Устанавливает горизонтальное расположение */
-        justify-content: flex-start; /* Элементы идут друг за другом, без растягивания */
-        align-items: center; /* Центрирует элементы по вертикали */
+    .filter-container {
+        flex-direction: row; /* Sets a horizontal layout */
+        justify-content: flex-start; /* Elements are placed one after another, no stretching */
+        align-items: center; /* Centers elements vertically */
     }
 
     .filter-item {
