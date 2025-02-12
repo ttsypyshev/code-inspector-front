@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Langs_Mock } from '../../modules/mock';
 import { Lang } from '../../modules/types';
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs.tsx";
+import { BurgerMenu } from "../../components/BurgerMenu/BurgerMenu.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import "./LangPage.css";
 import "../../components/global.css";
@@ -75,6 +76,7 @@ const LangPage: React.FC = () => {
         <div className="body">
             <div className="information-about">
                 <BreadCrumbs crumbs={breadcrumbsData} />
+                <BurgerMenu />
 
                 {loading ? (
                     <div className="loading">Загрузка</div>

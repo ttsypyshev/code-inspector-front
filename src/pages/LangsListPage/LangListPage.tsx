@@ -8,6 +8,7 @@ import "./LangListPage.css";
 import "../../components/global.css";
 import LanguageItem from "../../components/LanguageItem/LanguageItem.tsx";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs.tsx";
+import { BurgerMenu } from "../../components/BurgerMenu/BurgerMenu.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 
 const LangListPage = () => {
@@ -88,6 +89,7 @@ const LangListPage = () => {
         <div className="body">
             <div className="services-container">
                 <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]} />
+                <BurgerMenu />
                 <SearchField name={searchQuery} onNameChange={handleInputChange} />
                 <CartState cartCount={cartCount} draftID={draftID} />
                 <img className="separator-line" src="img/line.png" alt="separator" />

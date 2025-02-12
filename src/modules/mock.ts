@@ -6,7 +6,7 @@ export const Langs_Mock: Lang[] = [
         name: "Python",
         shortDescription: "Объединяет простоту и мощь",
         description: "это высокоуровневый язык программирования общего назначения, который широко используется благодаря своей гибкости, простоте и мощным возможностям расширения. Вот основные технические характеристики Python",
-        imgLink: "http://localhost:9000/code-inspector/python.png",
+        // imgLink: "http://localhost:9000/code-inspector/python.png",
         author: "Гвидо ван Россум",
         year: "1991",
         version: "Python 3.12.6 (Sep 12, 2024)",

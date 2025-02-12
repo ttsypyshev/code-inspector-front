@@ -1,0 +1,75 @@
+@media (min-width: 768px) {
+    .burger-menu-container {
+        display: none; /* Скрываем на десктопе */
+    }
+}
+
+.burger-menu-container {
+    position: fixed;
+    top: 15px;
+    left: 75%;
+    z-index: 1000;
+}
+
+.burger-button {
+    background-color: var(--background-color-lightest); /* Фон кнопки */
+    border-radius: var(--border-radius-sm); /* Скругление */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 50px;
+}
+
+.burger-button img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.burger-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: var(--background-color-dark);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.burger-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.burger-menu li {
+    margin: 10px 0;
+}
+
+.burger-menu a {
+    color: var(--text-color-light);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    color: inherit;
+    text-decoration: underline;
+    font: inherit;
+    cursor: pointer;
+}
+
+.menu-button:focus {
+    outline: none;
+}
+
+.menu-button:hover {
+    text-decoration: underline;
+}
+  

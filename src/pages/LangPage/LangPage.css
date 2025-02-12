@@ -4,8 +4,8 @@
   min-height: 100vh;
   position: relative;
   box-sizing: border-box;
+  overflow-x: hidden; /* предотвращает горизонтальный скролл */
 }
-
 /* Header Styles */
 .header {
   position: absolute;

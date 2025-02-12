@@ -142,6 +142,10 @@ h1 {
     left: 5%;
   }
 
+  .field-search-text {
+    width: 70%;
+  }
+
   .file-count-section {
     left: 77%;
   }
