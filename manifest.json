@@ -14,14 +14,14 @@
     ],
     "screenshots": [
       {
-        "src": "./screenshot_pc.png",
-        "sizes": "1910x899",
+        "src": "./screenshot_desktop.png",
+        "sizes": "1905x1003",
         "type": "image/png",
         "form_factor": "wide"
       },
       {
         "src": "./screenshot_mobile.png",
-        "sizes": "321x572",
+        "sizes": "486x976",
         "type": "image/png"
       }
     ]
