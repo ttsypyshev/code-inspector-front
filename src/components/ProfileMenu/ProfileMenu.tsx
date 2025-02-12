@@ -28,9 +28,6 @@ export const ProfileMenu = () => {
 
       // Если запрос успешен, удаляем данные из localStorage и state
       dispatch(logout());
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      localStorage.removeItem("name");
 
       // Перенаправляем на главную страницу
       navigate(ROUTES.HOME);

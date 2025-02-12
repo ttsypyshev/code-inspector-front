@@ -37,14 +37,22 @@ const Login = () => {
     
             // Если запрос успешен, получаем токен и данные пользователя
             const data = await response.json();
-            const { access_token, token_type } = data;
+            const { access_token, token_type, user } = data;
     
             // Сохраняем токен в Redux
             dispatch(setToken(`${token_type} ${access_token}`));
-            dispatch(setUser({ username: formData.username, name: "Test User" }));
+
+            // Сохраняем данные пользователя
+            dispatch(setUser({
+                username: user.login,   // Используем login вместо username
+                name: user.name,
+                id: user.id,
+                email: user.email,
+                role: user.role,
+            }));
     
             // Редирект на другую страницу (например, на главную)
-            navigate(ROUTES.LIST);  // Замените ROUTES.HOME на нужный маршрут
+            navigate(ROUTES.LIST);  // Замените ROUTES.LIST на нужный маршрут
 
         } catch (error) {
             setError("Неверный юзернейм или пароль");
