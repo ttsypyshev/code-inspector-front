@@ -8,6 +8,7 @@
 
 ## Ветки
 - **[SPA](https://github.com/ttsypyshev/code-inspector-front/tree/spa)** – разработка базового SPA на React
+- **[Redux](https://github.com/ttsypyshev/code-inspector-front/tree/redux)**  – Добавление менеджера состояний Redux Toolkit
 
 ## Установка и запуск
 
