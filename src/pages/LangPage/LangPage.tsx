@@ -102,7 +102,7 @@ const LangDetails: React.FC<{ lang: Lang }> = ({ lang }) => (
             <div className="text-name-lang">{lang.name}</div>
             <div className="text-description-lang">"{lang.shortDescription}"</div>
             { lang.imgLink ? (
-                <img className="img-lang" src={lang.imgLink} alt={lang.name} />
+                <img className="img-lang" src={`/img-proxy/code-inspector/${lang.id}.png`} alt={lang.name} />
             ) : null}
         </div>
 

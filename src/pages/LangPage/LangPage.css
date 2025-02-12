@@ -1,19 +1,16 @@
-/* Main Information Section */
+/* General Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .information-about {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  box-sizing: border-box;
-  overflow-x: hidden; /* предотвращает горизонтальный скролл */
-}
-/* Header Styles */
-.header {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  top: 58px;
-  left: 89px;
-  border-radius: 5px;
 }
 
 /* Info Container */
@@ -25,16 +22,15 @@
   margin: 0 auto;
   position: relative;
   padding: 0;
-  box-sizing: border-box;
 }
 
 /* Title Styles */
 .title {
   position: absolute;
-  width: 759px;
+  width: 40%;
   height: 217px;
   top: 150px;
-  left: 312px;
+  left: 16%;
   background-color: var(--background-color-muted);
   border-radius: 30px;
 }
@@ -50,7 +46,7 @@
 }
 
 .text-name-lang {
-  width: 639px;
+  width: 70%;
   top: 12px;
   font-size: var(--font-size-title);
   letter-spacing: -1.04px;
@@ -58,7 +54,7 @@
 }
 
 .text-description-lang {
-  width: 679px;
+  width: 90%;
   top: 83px;
   font-size: var(--font-size-subtitle);
   letter-spacing: -0.76px;
@@ -71,17 +67,18 @@
   width: 80px;
   height: 80px;
   top: 11px;
-  left: 666px;
+  right: 3%;
   object-fit: cover;
 }
 
 /* Basic Info Section */
 .background-basic-info {
   position: absolute;
-  width: 477px;
+  width: 25%;
+  min-width: 350px;
   height: 217px;
   top: 150px;
-  left: 1120px;
+  left: 58%;
   background-color: var(--background-color-dark);
   border-radius: 20px;
   border: 2px solid var(--border-color-light);
@@ -122,11 +119,10 @@
 /* Additional Info Section */
 .background-additional-info {
   position: absolute;
-  width: 100%;
-  max-width: 1285px;
+  width: 67%;
   margin: 20px auto;
   top: 390px;
-  left: 312px;
+  left: 16%;
   padding: 30px;
   background-color: var(--background-color-dark);
   border-radius: 20px;
@@ -181,16 +177,12 @@
   hyphens: auto;
 }
 
-/* Responsive Design */
+/* Mobile version */
 @media (max-width: 768px) {
   .title, .background-basic-info {
     width: 90%;
     left: 50%;
     transform: translateX(-50%);
-  }
-
-  .text-name-lang, .text-description-lang {
-    width: 90%;
   }
 
   .text-name-lang {
@@ -209,7 +201,7 @@
   .img-lang {
     width: 50px;
     height: 60px;
-    left: 80%;
+    /* left: 80%; */
   }
 
   .background-basic-info {

@@ -34,11 +34,11 @@
   filter: brightness(0) invert(1);
   width: 95px;
   height: 85px;
-  transition: transform 0.1s, filter 0.1s;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .file-count-icon:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
   filter: brightness(1.2) invert(1);
 }
 
@@ -51,7 +51,7 @@
 .field-search-text {
   position: relative;
   left: 81px;
-  width: 1050px;
+  width: 85%;
   height: 75px;
   font-family: var(--font-family-default);
   color: var(--text-color-dark);
@@ -85,8 +85,8 @@
 .separator-line {
   position: absolute;
   top: 320px;
-  left: 260px;
-  width: 1432px;
+  left: 10%;
+  width: 80%;
   height: 2px;
   background-color: var(--border-color-light);
 }
@@ -99,15 +99,16 @@
 
 .file-count-section {
   top: 168px;
-  left: 1511px;
+  left: 79%;
   width: 95px;
   height: 85px;
 }
 
 .search-section {
   top: 174px;
-  left: 314px;
-  width: 1161px;
+  left: 17%;
+  width: 60%;
+  min-width: 200px;
   height: 75px;
   background-color: var(--background-color-lightest);
   border-radius: var(--border-radius-xl);
@@ -135,7 +136,7 @@ h1 {
   margin: 0;
 }
 
-/* Мобильная версия (ширина экрана до 768px) */
+/* Mobile version (screen width up to 768px) */
 @media (max-width: 768px) {
   .search-section {
     width: 70%;
@@ -147,7 +148,21 @@ h1 {
   }
 
   .file-count-section {
-    left: 77%;
+    left: 77%; /* Сдвигаем на немного левее для мобильных устройств */
+    top: 180px;
+    width: 75px; /* Уменьшаем ширину */
+    height: 75px; /* Уменьшаем высоту */
+  }
+
+  .file-count-text {
+    top: 20px; /* Корректируем положение текста */
+    left: 30px; /* Корректируем положение текста */
+    font-size: 14px; /* Уменьшаем размер шрифта */
+  }
+
+  .file-count-icon {
+    width: 70px; /* Уменьшаем ширину иконки */
+    height: 60px; /* Уменьшаем высоту иконки */
   }
 
   .separator-line {
