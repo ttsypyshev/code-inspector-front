@@ -38,16 +38,24 @@ export const ProfileMenu = () => {
 
   return (
     <div className="Profile-menu-container">
-      <button className="Profile-button" onClick={() => setIsOpen(!isOpen)}>
-        {username}
-      </button>
-      {isOpen && (
-        <nav className="Profile-menu">
-          <ul>
-            <li><Link to={ROUTES.PROFILE} className="menu-button">Профиль</Link></li>
-            <li><button onClick={handleLogout} className="menu-button">Выйти</button></li>
-          </ul>
-        </nav>
+      {token ? (
+        // Если пользователь залогинен, показываем имя и меню
+        <>
+          <button className="Profile-button" onClick={() => setIsOpen(!isOpen)}>
+            {username}
+          </button>
+          {isOpen && (
+            <nav className="Profile-menu">
+              <ul>
+                <li><Link to={ROUTES.PROFILE} className="menu-button">Профиль</Link></li>
+                <li><button onClick={handleLogout} className="menu-button">Выйти</button></li>
+              </ul>
+            </nav>
+          )}
+        </>
+      ) : (
+        // Если пользователь не залогинен, показываем кнопку для перехода на страницу входа
+        <Link to={ROUTES.AUTH} className="Profile-button">Войти</Link>
       )}
     </div>
   );

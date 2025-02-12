@@ -1,117 +1,102 @@
-.applications-container {
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
+/* Projects Page Styles */
+.body {
+    font-family: var(--font-family-default);
+    color: var(--text-color-light);
     background-color: var(--background-color-darkest);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
+    padding: 20px;
+    min-height: 100vh;
 }
 
-.page-title {
-    font-family: var(--font-family-default);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--text-color-light);
+h1 {
+    font-size: var(--font-size-title);
     text-align: center;
-    margin: 40px 0;
+    margin-bottom: 20px;
+}
+
+/* Filters */
+label {
+    font-size: var(--font-size);
+    margin-right: 10px;
+}
+
+input[type="date"], select {
+    padding: 10px;
+    margin: 5px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color-light);
+    background-color: var(--background-color-dark);
+    color: var(--text-color-light);
 }
 
 /* Table Styles */
-.applications-table {
+table {
     width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
+    margin-top: 20px;
     background-color: var(--background-color-dark);
-    border-radius: var(--border-radius-sm);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    box-sizing: border-box;
+    border-radius: var(--border-radius-xs);
+    overflow-x: auto; /* Enables horizontal scrolling */
+    display: block; /* Ensures the table can be scrolled horizontally */
 }
 
-.applications-table-content {
-    width: 100%;
-    border-collapse: collapse;
-}
 
-.applications-table-content th, .applications-table-content td {
-    padding: 12px 20px;
-    text-align: left;
-    font-family: var(--font-family-default);
-    font-size: var(--font-size-sm);
-    color: var(--text-color-light);
-}
-
-.applications-table-content th {
-    background-color: var(--background-color-medium);
-    color: var(--text-color-muted);
-}
-
-.applications-table-content tr:nth-child(even) {
-    background-color: var(--background-color-dark);
-}
-
-.applications-table-content tr:nth-child(odd) {
+thead {
     background-color: var(--background-color-medium);
 }
 
-.applications-table-content td {
-    background-color: var(--background-color-light);
-}
-
-.applications-table-content tr:hover {
-    background-color: var(--background-color-lightest);
-}
-
-/* Loading Styles */
-.loading {
-    font-family: var(--font-family-default);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--text-color-light);
-    text-align: center;
-
-    /* Центрирование */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* Анимация */
-    display: inline-block;
-}
-
-.loading::after {
-    content: '...';
-    display: inline-block;
-    animation: dots-animation 1.5s infinite steps(3);
-}
-
-@keyframes dots-animation {
-    0% { content: ''; }
-    33% { content: '.'; }
-    66% { content: '..'; }
-    100% { content: '...'; }
-}
-
-/* Mobile version (screen width up to 768px) */
-@media (max-width: 768px) {
-    .applications-table {
-    width: 100%;
+th, td {
     padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--background-color-light);
+}
+
+th {
+    font-size: var(--font-size-sm);
+}
+
+tbody tr:hover {
+    background-color: var(--background-color-light);
+    color: var(--text-color-dark);
+}
+
+/* Link Styles */
+a {
+    text-decoration: none;
+    color: var(--background-color-green);
+    font-weight: var(--font-weight-bold);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Filter Layout */
+.filters {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам оборачиваться на мобильных устройствах */
+    gap: 20px; /* Добавляет пространство между фильтрами */
+    justify-content: flex-start; /* Убирает растягивание и делает расположение элементов последовательным */
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column; /* Элементы внутри filter-item будут располагаться вертикально */
+}
+
+/* Desktop view: Filters displayed horizontally, but not stretched */
+@media screen and (min-width: 768px) {
+    /* Фильтры отображаются горизонтально */
+    .filters {
+        flex-direction: row; /* Устанавливает горизонтальное расположение */
+        justify-content: flex-start; /* Элементы идут друг за другом, без растягивания */
+        align-items: center; /* Центрирует элементы по вертикали */
     }
 
-    .page-title {
-    font-size: var(--font-size-lg);
-    margin: 20px 0;
+    .filter-item {
+        flex-direction: column; /* Внутри каждого filter-item элементы остаются вертикальными (label сверху, input снизу) */
+        margin-right: 20px; /* Пространство между элементами фильтра */
     }
 
-    .applications-table-content th, .applications-table-content td {
-    font-size: var(--font-size-xs);
-    }
-
-    .applications-table-content td {
-    padding: 8px 12px;
+    .filter-item label {
+        margin-right: 10px; /* Пробел между лейблом и полем ввода */
     }
 }

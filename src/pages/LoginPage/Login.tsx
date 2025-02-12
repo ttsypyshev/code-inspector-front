@@ -1,3 +1,4 @@
+import "./Login.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +9,7 @@ const Login = () => {
     const [formData, setFormData] = useState({ username: "", password: "" });
     const [error, setError] = useState("");
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // Хук для редиректа
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -68,7 +69,7 @@ const Login = () => {
                     <input
                         type="text"
                         name="username" // Изменено на username
-                        placeholder="Юзернейм"
+                        placeholder="Логин"
                         value={formData.username}  // Используем username
                         onChange={handleChange}
                         className="login-input"
