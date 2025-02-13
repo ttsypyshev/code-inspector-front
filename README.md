@@ -11,6 +11,7 @@
 - **[Redux](https://github.com/ttsypyshev/code-inspector-front/tree/redux)** – добавление менеджера состояний `Redux Toolkit`
 - **[Pwa](https://github.com/ttsypyshev/code-inspector-front/tree/pwa)** – добавление возможности работы в режиме `PWA` + `GitHub Pages`
 - **[Tauri](https://github.com/ttsypyshev/code-inspector-front/tree/tauri)** – Создание простого нативного приложения на Tauri
+- **[Student interface](https://github.com/ttsypyshev/code-inspector-front/tree/sender-interface)** – Завершение интерфейса `пользователя` в `React`
 
 ## Установка и запуск
 
