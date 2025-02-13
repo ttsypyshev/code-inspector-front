@@ -33,17 +33,9 @@ export const ProfileMenu = () => {
       if (response.ok) {
         console.log("Проект успешно удален!");
         return true; // Возвращаем true, если проект успешно удален
-      } else {
-        const errorData = await response.json();
-
-        // Проверка на ошибку с кодом 400 и конкретным сообщением
-        if (response.status === 400 && errorData.message === "[err] project cannot be deleted, formation date found") {
-          console.log("Проект успешно удален!"); // Выводим нужное сообщение в случае этой ошибки
-          return true; // В случае этой ошибки мы тоже считаем, что проект удален
-        }
-
-        console.error(errorData.message || "Ошибка при удалении проекта");
-        return false; // Возвращаем false в случае других ошибок
+      } else { 
+          console.error("Ошибка при удалении проекта");
+          return false; // Возвращаем false в случае других ошибок
       }
     } catch (error) {
       console.error("Ошибка при удалении проекта", error);
