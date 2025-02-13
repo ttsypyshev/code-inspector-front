@@ -86,6 +86,19 @@
     font-weight: bold;
 }
 
+.success-message {
+    text-align: center;
+    background-color: var(--background-color-green);
+    color: var(--text-color-light);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(76, 255, 76, 0.3);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
 .loading {
     font-family: var(--font-family-default);
     font-size: var(--font-size-lg);

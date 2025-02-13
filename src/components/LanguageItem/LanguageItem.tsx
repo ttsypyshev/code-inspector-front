@@ -3,7 +3,8 @@ import './LanguageItem.css';
 import { Lang } from "../../modules/types";
 import { Link } from 'react-router-dom';
 import { RootState } from "../../store/store";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setProjectID } from '../../store/slices/userSlice';
 
 interface LangItemProps {
   lang: Lang;
@@ -17,6 +18,8 @@ const LangItem: React.FC<LangItemProps> = ({ lang, onImageLoad, onAddToCart }) =
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [status, setStatus] = useState<'success-btn' | 'error-btn' | ''>('');
   const token = useSelector((state: RootState) => state.user.token);
+  const user = useSelector((state: RootState) => state.user.profile);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (lang.imgLink) {
@@ -49,8 +52,16 @@ const LangItem: React.FC<LangItemProps> = ({ lang, onImageLoad, onAddToCart }) =
         });
 
         if (response.ok) {
-            setStatus('success-btn');
-            onAddToCart();
+          const data = await response.json(); // Получаем данные из ответа
+          
+          // Проверьте правильность ключа: убедитесь, что используете правильный ключ из ответа
+          const projectId = data.projectID;  // Исправили на правильный ключ
+
+          // Убедитесь, что функция dispatch работает корректно
+          dispatch(setProjectID(projectId));
+
+          setStatus('success-btn');
+          onAddToCart();
         } else {
             setStatus('error-btn');
         }

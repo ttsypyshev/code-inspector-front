@@ -14,15 +14,17 @@ import { Link } from 'react-router-dom';
 const LangListPage = () => {
     const [languages, setLanguages] = useState<Lang[]>([]);
     const [cartCount, setCartCount] = useState(0);
-    const [draftID, setDraftID] = useState(0);
     const token = useSelector((state: RootState) => state.user.token);
+    const projectID = useSelector((state: RootState) => state.user.projectId);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
-    // @ts-ignore
+     // @ts-ignore
     const [isMock, setIsMock] = useState(false);
-    // @ts-ignore
+     // @ts-ignore
     const [imageLoadingStatus, setImageLoadingStatus] = useState<boolean[]>([]);
 
+    // Получаем projectID из Redu
+    
     const searchQuery = useSelector((state: RootState) => state.filter.searchQuery);
     const dispatch = useDispatch();
 
@@ -59,7 +61,6 @@ const LangListPage = () => {
                 }))
             );
             setCartCount(result.count || 0);
-            setDraftID(result.draftID);
             setIsMock(false);
         } catch (err) {
             console.error("Fetch error:", err);
@@ -101,14 +102,14 @@ const LangListPage = () => {
         <div className="body">
             <div className="services-container">
                 <Header
-                        showBreadCrumbs={true}
-                        showBurgerMenu={true}
-                        crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]}
-                        showProfileMenu={true}
-                        showHistory={true}
+                    showBreadCrumbs={true}
+                    showBurgerMenu={true}
+                    crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]}
+                    showProfileMenu={true}
+                    showHistory={true}
                 />
                 <SearchField name={searchQuery} onNameChange={handleInputChange} />
-                <CartState cartCount={cartCount} draftID={draftID} />
+                <CartState cartCount={cartCount} projectID={projectID} /> {/* Передаем projectID */}
                 <img className="separator-line" src="img/line.png" alt="separator" />
                 <ul className="service-list">
                     {loading ? (
@@ -152,10 +153,10 @@ const SearchField: React.FC<{ name: string; onNameChange: (e: React.ChangeEvent<
     </div>
 );
 
-const CartState: React.FC<{ cartCount: number; draftID: number }> = ({ cartCount, draftID }) => (
+const CartState: React.FC<{ cartCount: number; projectID: string | null }> = ({ cartCount, projectID }) => (
     <div className="file-count-section">
         {cartCount !== 0 ? (
-            <Link to={`${ROUTES.PROJECT}${draftID}`} className="file-count">
+            <Link to={`${ROUTES.PROJECT}${projectID}`} className="file-count">
                 <img className="file-count-icon" src="img/icon-count-files.png" alt="files" />
                 <div className="file-count-text">{cartCount}</div>
             </Link>
