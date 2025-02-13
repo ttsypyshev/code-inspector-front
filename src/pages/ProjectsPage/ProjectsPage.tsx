@@ -18,6 +18,7 @@ interface Project {
     Status: string;
     Moderator?: string;
     ModeratorComment?: string | null;
+    qr?: string;
 }
 
 const formatDate = (isoString: string | null) => {
@@ -80,6 +81,7 @@ const ProjectsPage = () => {
                         Status: project.Status,
                         Moderator: project.Moderator ? project.Moderator.name : "—",
                         ModeratorComment: project.ModeratorComment || "—",
+                        qr: project.qr,
                     }))
                 );
             } catch (error) {
@@ -220,6 +222,7 @@ const ProjectsPage = () => {
                             <th className="table-header-cell">Комментарий</th>
                             <th className="table-header-cell">Ссылка</th>
                             {user.role === "admin" && ( <th className="table-header-cell">Оценка</th> )}
+                            <th className="table-header-cell">QR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -246,6 +249,19 @@ const ProjectsPage = () => {
                                         </button>
                                     </td>
                                 )}
+                                <td className="table-cell">
+                                    {!project.qr ? (
+                                        <img className="status-icon" src="/code-inspector-front/public/time.svg" alt="Time Icon" />
+                                    ) : (
+                                        <div className="qr-hover-wrapper">
+                                            <img className="status-icon" src="/code-inspector-front/public/qr.svg" alt="QR Icon" />
+                                            <div className="qr-hover">
+                                                <img className="qr-code" src={`data:image/png;base64,${project.qr}`} alt="QR Code" />
+                                                <p>Проект №{project.id}</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
