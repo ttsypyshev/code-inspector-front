@@ -7,6 +7,7 @@ import Login from "./pages/LoginPage/LoginPage";
 import ApplicationsPage from "./pages/ProjectsPage/ProjectsPage";
 import UserProfilePage from "./pages/ProfilePage/UserProfilePage";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
+import EditLanguagesPage from "./pages/EditLangsPage/EditLangsPage";
 import { ROUTES } from "./Routes";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect } from 'react';
@@ -35,6 +36,7 @@ function App() {
                 <Route path={ROUTES.PROJECTS} element={<ApplicationsPage/>} />
                 <Route path={ROUTES.PROFILE} element={<UserProfilePage/>} />
                 <Route path={`${ROUTES.PROJECT}:id`} element={<ProjectPage/>} />
+                <Route path={ROUTES.EDIT} element={<EditLanguagesPage/>} />
             </Routes>
         </BrowserRouter>
     );

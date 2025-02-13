@@ -12,9 +12,10 @@ interface HeaderProps {
   crumbs: Array<{ label: string; path: string }>;
   showProfileMenu: boolean;
   showHistory: boolean;
+  showEdit: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ showBreadCrumbs, showBurgerMenu, crumbs, showProfileMenu, showHistory }) => {
+const Header: React.FC<HeaderProps> = ({ showBreadCrumbs, showBurgerMenu, crumbs, showProfileMenu, showHistory, showEdit }) => {
   return (
     <header className="header">
       <table className="header-table">
@@ -33,6 +34,13 @@ const Header: React.FC<HeaderProps> = ({ showBreadCrumbs, showBurgerMenu, crumbs
               {showHistory && (
                 <Link to={ROUTES.PROJECTS} className="history-button">
                   История
+                </Link>
+              )}
+            </td>
+            <td className="history-button-container">
+              {showEdit && (
+                <Link to={ROUTES.EDIT} className="history-button">
+                  Редактирование
                 </Link>
               )}
             </td>

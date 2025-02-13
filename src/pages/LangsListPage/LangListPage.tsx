@@ -16,6 +16,7 @@ const LangListPage = () => {
     const [cartCount, setCartCount] = useState(0);
     const token = useSelector((state: RootState) => state.user.token);
     const projectID = useSelector((state: RootState) => state.user.projectId);
+    const user = useSelector((state: RootState) => state.user.profile);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
      // @ts-ignore
@@ -106,7 +107,8 @@ const LangListPage = () => {
                     showBurgerMenu={true}
                     crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]}
                     showProfileMenu={true}
-                    showHistory={projectID !== null}
+                    showHistory = {projectID !== null || user.role === 'admin'}
+                    showEdit = {user.role === 'admin'}
                 />
                 <SearchField name={searchQuery} onNameChange={handleInputChange} />
                 <CartState cartCount={cartCount} projectID={projectID} /> {/* Передаем projectID */}

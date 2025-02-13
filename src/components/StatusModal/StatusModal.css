@@ -1,0 +1,85 @@
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-light);
+    padding: 20px;
+    border-radius: var(--border-radius-lg);
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 15x;
+}
+
+/* Heading */
+.modal-content h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 10px;
+}
+
+/* Labels */
+.modal-content label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    margin-bottom: 5px;
+}
+
+/* Select and Textarea */
+.modal-content select,
+.modal-content textarea {
+    background-color: var(--background-color-medium-dark);
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--border-radius-sm);
+    padding: 10px;
+    font-size: var(--font-size-sm);
+    width: 100%;
+}
+
+.modal-content textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* Buttons */
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--background-color-green);
+    color: var(--text-color-light);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background-color: var(--background-color-darker);
+}
+
+/* Close Button */
+.modal-content button:nth-child(2) {
+    background-color: var(--background-color-red);
+}
+
+.modal-content button:nth-child(2):hover {
+    background-color: var(--background-color-darker);
+}

@@ -63,6 +63,7 @@ const ProjectPage: React.FC = () => {
                 }));
 
                 setFiles(updatedFiles);
+                console.log("Файлы проекта:", updatedFiles);
             } catch (error) {
                 console.error("Ошибка при загрузке данных проекта", error);
             }
@@ -166,6 +167,7 @@ const ProjectPage: React.FC = () => {
                     crumbs={breadcrumbsData}
                     showProfileMenu={false}
                     showHistory={false}
+                    showEdit={false}
                 />
                 <div className="tree">
                     <div className="info-box">

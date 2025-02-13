@@ -7,6 +7,7 @@ export const ROUTES = {
     PROFILE: "/profile/",
     PROJECTS: "/projects/",
     PROJECT: "/project/",
+    EDIT: "/edit/",
 }
 
 export type RouteKeyType = keyof typeof ROUTES;
@@ -19,4 +20,5 @@ export const ROUTE_LABELS: {[key in RouteKeyType]: string} = {
     PROFILE: "Профиль",
     PROJECTS: "Проекты",
     PROJECT: "Проект",
+    EDIT: "Редактирование",
 };
