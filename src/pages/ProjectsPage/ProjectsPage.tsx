@@ -121,7 +121,7 @@ const ProjectsPage = () => {
                             onChange={(e) => setStatus(e.target.value)}
                         >
                             <option value="draft">Черновик</option>
-                            <option value="deleted">Удалёно</option>
+                            <option value="created">Отправлено</option>
                             <option value="completed">Принято</option>
                             <option value="rejected">Отклонено</option>
                             <option value="all">Все</option>

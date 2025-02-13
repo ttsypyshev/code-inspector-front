@@ -218,3 +218,7 @@ h1 {
     line-height: var(--line-height-large);
     white-space: nowrap;
 }
+
+.project-info {
+    word-wrap: break-word; /* или используйте word-break: break-word; */
+}

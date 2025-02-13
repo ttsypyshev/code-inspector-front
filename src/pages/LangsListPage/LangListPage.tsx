@@ -106,7 +106,7 @@ const LangListPage = () => {
                     showBurgerMenu={true}
                     crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]}
                     showProfileMenu={true}
-                    showHistory={true}
+                    showHistory={projectID !== null}
                 />
                 <SearchField name={searchQuery} onNameChange={handleInputChange} />
                 <CartState cartCount={cartCount} projectID={projectID} /> {/* Передаем projectID */}
@@ -155,7 +155,7 @@ const SearchField: React.FC<{ name: string; onNameChange: (e: React.ChangeEvent<
 
 const CartState: React.FC<{ cartCount: number; projectID: string | null }> = ({ cartCount, projectID }) => (
     <div className="file-count-section">
-        {cartCount !== 0 ? (
+        {cartCount !== 0  && projectID !== null ? (
             <Link to={`${ROUTES.PROJECT}${projectID}`} className="file-count">
                 <img className="file-count-icon" src="img/icon-count-files.png" alt="files" />
                 <div className="file-count-text">{cartCount}</div>

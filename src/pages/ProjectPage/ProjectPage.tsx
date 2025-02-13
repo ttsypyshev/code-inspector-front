@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; 
+import { useParams, useNavigate } from "react-router-dom"; 
 import { useSelector, useDispatch } from 'react-redux';
 import { setProjectID } from '../../store/slices/userSlice';
 import { RootState } from "../../store/store";
@@ -17,7 +17,6 @@ const formatDate = (isoString: string | null) => {
     });
 };
 
-
 const ProjectPage: React.FC = () => {
     const { id } = useParams<{ id: string }>(); 
     const [files, setFiles] = useState<any[]>([]); 
@@ -34,6 +33,7 @@ const ProjectPage: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null); 
     const [successMessage, setSuccessMessage] = useState<string | null>(null); 
     const dispatch = useDispatch();
+    const navigate = useNavigate(); // Use navigate hook
 
     useEffect(() => {
         const fetchProjectData = async () => {
@@ -114,6 +114,7 @@ const ProjectPage: React.FC = () => {
                 dispatch(setProjectID(null));
                 setSuccessMessage("Проект успешно сохранен!");
                 setErrorMessage(null); 
+                navigate(ROUTES.LIST); // Redirect to the list page after successful submission
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.message || "Ошибка при сохранении проекта");
@@ -139,6 +140,7 @@ const ProjectPage: React.FC = () => {
                 dispatch(setProjectID(null));
                 setSuccessMessage("Проект успешно удален!");
                 setErrorMessage(null); 
+                navigate(ROUTES.LIST); // Redirect to the list page after successful deletion
             } else {
                 setErrorMessage("Невозможно удалить проект");
                 setSuccessMessage(null); 
@@ -173,12 +175,13 @@ const ProjectPage: React.FC = () => {
                     <p className="project-info">Статус: {projectInfo.status}</p>
                     <p className="project-info">Комментарий модератора: {projectInfo.moderatorComment || "Нет комментариев"}</p>
                     <div className="project-buttons">
-                        <button className="project-btn save-project-btn" onClick={handleSubmitProject}>Сохранить проект</button>
-                        {projectInfo.formationDate === '—' && (
-                            <button className="project-btn delete-project-btn" onClick={handleDeleteProject}>Удалить проект</button>
+                    {projectInfo.formationDate === '—' && (
+                            <>
+                                <button className="project-btn save-project-btn" onClick={handleSubmitProject}>Отправить проект</button>
+                                <button className="project-btn delete-project-btn" onClick={handleDeleteProject}>Удалить проект</button>
+                            </>
                         )}
                     </div>
-
                         {successMessage && <div className="success-message">{successMessage}</div>} 
                         {errorMessage && <div className="error-message">{errorMessage}</div>} 
                     </div>

@@ -52,12 +52,9 @@ const LangItem: React.FC<LangItemProps> = ({ lang, onImageLoad, onAddToCart }) =
         });
 
         if (response.ok) {
-          const data = await response.json(); // Получаем данные из ответа
-          
-          // Проверьте правильность ключа: убедитесь, что используете правильный ключ из ответа
-          const projectId = data.projectID;  // Исправили на правильный ключ
+          const data = await response.json();
+          const projectId = data.projectID;
 
-          // Убедитесь, что функция dispatch работает корректно
           dispatch(setProjectID(projectId));
 
           setStatus('success-btn');
@@ -85,13 +82,17 @@ const LangItem: React.FC<LangItemProps> = ({ lang, onImageLoad, onAddToCart }) =
         <div className="service-title">{lang.name}</div>
         <div className="service-description">{lang.shortDescription}</div>
       </Link>
-      <button
-        type="button"
-        className={`add-to-project-button-background ${status}`}
-        onClick={handleAddToProject}
-      >
-        <div className="add-to-project-button-text">Добавить в проект</div>
-      </button>
+
+      {/* Условие для отображения кнопки только для студентов */}
+      {user.role === 'student' && (
+        <button
+          type="button"
+          className={`add-to-project-button-background ${status}`}
+          onClick={handleAddToProject}
+        >
+          <div className="add-to-project-button-text">Добавить в проект</div>
+        </button>
+      )}
     </li>
   );
 };
