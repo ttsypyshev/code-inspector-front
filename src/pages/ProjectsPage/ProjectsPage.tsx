@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import './ProjectsPage.css';
 import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
-import StatusModal from "../../components/StatusModal/SattusModal.tsx"; // Теперь без фигурных скобок
-
+import StatusModal from "../../components/StatusModal/SattusModal.tsx";
 
 interface Project {
     id: number;
@@ -46,10 +45,10 @@ const ProjectsPage = () => {
     const [selectedProjectStatus, setSelectedProjectStatus] = useState<string>("");
     const [selectedProjectComment, setSelectedProjectComment] = useState<string>("");
 
-
     useEffect(() => {
         if (!token) return;
 
+        // Function to fetch projects
         const fetchProjects = async () => {
             try {
                 const params = new URLSearchParams();
@@ -90,7 +89,11 @@ const ProjectsPage = () => {
             }
         };
 
-        fetchProjects();
+        // Start polling every 10 seconds (10000 ms)
+        const intervalId = setInterval(fetchProjects, 2000);
+
+        // Cleanup the interval when the component is unmounted or token changes
+        return () => clearInterval(intervalId);
     }, [token, startDate, endDate, status]);
 
     // Фильтруем проекты в зависимости от роли пользователя
@@ -144,8 +147,6 @@ const ProjectsPage = () => {
     const handleCloseModal = () => {
         setModalOpen(false); // Закрыть модальное окно
     };
-
-
 
     const breadcrumbsData = [
         { label: ROUTE_LABELS.LIST, path: ROUTES.LIST },
