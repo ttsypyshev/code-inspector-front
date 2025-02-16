@@ -14,11 +14,12 @@ function getLocalIP() {
             }
         }
     }
-    return '127.0.0.1'; // fallback на localhost
+    return '0.0.0.0';
 }
 
 const target_tauri = false;
 export const local_ip = getLocalIP();
+// export const local_ip = '10.0.0.0';
 
 export const api_proxy_addr = `http://${local_ip}:8080`;
 export const img_proxy_addr = `http://${local_ip}:9000`;

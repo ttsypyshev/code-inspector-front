@@ -83,6 +83,7 @@ const UserProfilePage: React.FC = () => {
 							crumbs={breadcrumbsData}
 							showProfileMenu={false}
 							showHistory={false}
+							showEdit={false}
 				/>
 				<h1 className="profile-title">Личный кабинет</h1>
 

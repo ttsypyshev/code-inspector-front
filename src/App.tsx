@@ -14,19 +14,19 @@ import { useEffect } from 'react';
 
 
 function App() {
-    useEffect(()=>{
-        invoke('tauri', {cmd:'create'})
-            .then(() =>{console.log("Tauri launched")})
-            .catch(() =>{console.log("Tauri not launched")})
-        return () =>{
-            invoke('tauri', {cmd:'close'})
-            .then(() =>{console.log("Tauri launched")})
-            .catch(() =>{console.log("Tauri not launched")})
-        }
-    }, [])
+    // useEffect(()=>{
+    //     invoke('tauri', {cmd:'create'})
+    //         .then(() =>{console.log("Tauri launched")})
+    //         .catch(() =>{console.log("Tauri not launched")})
+    //     return () =>{
+    //         invoke('tauri', {cmd:'close'})
+    //         .then(() =>{console.log("Tauri launched")})
+    //         .catch(() =>{console.log("Tauri not launched")})
+    //     }
+    // }, [])
 
     return (
-        <BrowserRouter basename='/code-inspector-front'>
+        <BrowserRouter basename='/'>
             <Routes>
                 <Route path={ROUTES.HOME} element={<MainPage/>} />
                 <Route path={ROUTES.LIST} element={<LangListPage/>} />

@@ -1,18 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import mkcert from 'vite-plugin-mkcert'
-import fs from 'fs';
-import path from 'path';
+// import fs from 'fs';
+// import path from 'path';
 import {local_ip, api_proxy_addr, img_proxy_addr, dest_root} from "./target_config"
 
 export default defineConfig({
   server: {
-    https:{
-      key: fs.readFileSync(path.resolve(__dirname, 'cert.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'cert.crt')),
-    },
-    host: local_ip,
+    host: '0.0.0.0',  // Прослушиваем все интерфейсы
     port: 3000,
+    hmr: {
+      host: local_ip,  // or '127.0.0.1' depending on your environment
+      port: 3000,
+      protocol: 'ws',
+    },    
     proxy: {
       "/api": {
         target: api_proxy_addr,
@@ -26,6 +27,6 @@ export default defineConfig({
       },
     },
   },
-  base:dest_root,
-  plugins: [react(), mkcert()],
+  // base: dest_root,
+  plugins: [react()],
 })

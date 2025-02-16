@@ -80,6 +80,7 @@ const LangPage: React.FC = () => {
                         crumbs={breadcrumbsData}
                         showProfileMenu={false}
                         showHistory={false}
+                        showEdit={false}
                 />
                 {loading ? (
                     <div className="loading">Загрузка</div>
