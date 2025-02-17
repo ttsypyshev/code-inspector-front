@@ -22,8 +22,8 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({showProfileMenu, showHist
           <ul>
             <li><Link to={ROUTES.HOME} className="menu-button">Главная</Link></li>
             <li><Link to={ROUTES.LIST} className="menu-button">Языки</Link></li>
-            {showHistory && <li><Link to={ROUTES.PROJECTS} className="menu-button">История</Link></li>}
             {showProfileMenu && <li><Link to={ROUTES.PROFILE} className="menu-button">Профиль</Link></li>}
+            {showHistory && <li><Link to={ROUTES.PROJECTS} className="menu-button">История</Link></li>}
             {showEdit && <li><Link to={ROUTES.EDIT} className="menu-button">Редактирование</Link></li>}
           </ul>
         </nav>

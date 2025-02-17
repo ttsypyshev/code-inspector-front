@@ -109,7 +109,7 @@ const LangListPage = () => {
                     showBreadCrumbs={true}
                     showBurgerMenu={true}
                     crumbs={[{ label: ROUTE_LABELS.LIST, path: ROUTES.LIST }]}
-                    showProfileMenu={true}
+                    showProfileMenu={user.role !== null}
                     showHistory = {projectID !== null || user.role === 'admin'}
                     showEdit = {user.role === 'admin'}
                 />

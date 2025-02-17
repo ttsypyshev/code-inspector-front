@@ -62,6 +62,7 @@ const ProjectPage: React.FC = () => {
         
             const updatedFiles = data.files.map((file: any) => ({
               id: file.ID,
+              langId: file.Lang.ID,
               lang: file.Lang.Name,
               code: file.Code,
               icon: file.Lang.ImgLink,
@@ -201,7 +202,7 @@ const ProjectPage: React.FC = () => {
                         {files.map(file => (
                             <li key={file.id} className="code">
                                 <div className="lang-container">
-                                    <img className="icon-lang" src={file.icon} alt={file.lang} />
+                                    <img className="icon-lang" src={`/img-proxy/code-inspector/${file.langId}.png`} alt={file.lang} />
                                     <div className="text-lang">{file.lang}</div>
                                 </div>
                                 <div className="background-code">

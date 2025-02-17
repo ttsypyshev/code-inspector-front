@@ -261,10 +261,10 @@ const ProjectsPage = () => {
                                 )}
                                 <td className="table-cell">
                                     {!project.qr ? (
-                                        <img className="status-icon" src="/code-inspector-front/public/time.svg" alt="Time Icon" />
+                                        <img className="status-icon" src="/img/time.svg" alt="Time Icon" />
                                     ) : (
                                         <div className="qr-hover-wrapper">
-                                            <img className="status-icon" src="/code-inspector-front/public/qr.svg" alt="QR Icon" />
+                                            <img className="status-icon" src="/img/qr.svg" alt="QR Icon" />
                                             <div className="qr-hover">
                                                 <img className="qr-code" src={`data:image/png;base64,${project.qr}`} alt="QR Code" />
                                                 <p>Проект №{project.id}</p>

@@ -269,7 +269,7 @@ const EditLanguagesPage = () => {
                 <td className="table-cell">{lang.year}</td>
                 <td className="table-cell">{lang.version}</td>
                 <td className="table-cell">
-                  <img src={lang.img_link} alt={lang.name} className="table-image" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                  <img src={`/img-proxy/code-inspector/${lang.id}.png`}  alt={lang.name} className="table-image" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
                 </td>
                 <td className="table-cell">
                   <button className="button button-edit" onClick={() => openEditLanguageModal(lang)}>Редактировать</button>
