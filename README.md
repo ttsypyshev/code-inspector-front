@@ -13,6 +13,7 @@
 - **[Tauri](https://github.com/ttsypyshev/code-inspector-front/tree/tauri)** – Создание простого нативного приложения на Tauri
 - **[Student interface](https://github.com/ttsypyshev/code-inspector-front/tree/sender-interface)** – Завершение интерфейса `пользователя` в `React`
 - **[Moderator interface](https://github.com/ttsypyshev/code-inspector-front/tree/moder-interface)** – Завершение интерфейса `модератора` в `React`
+- **[Android studio ](https://github.com/ttsypyshev/code-inspector-front/tree/android-studio)** – Создание приложения на `Android` и подключение к веб-сервису
 
 ## Установка и запуск
 
@@ -29,7 +30,7 @@ npm install
 
 ### 3. Запуск проекта
 ```bash
-npm run dev
+cargo tauri android dev
 ```
 
 ## Основные возможности
