@@ -6,6 +6,8 @@ import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import "./LangPage.css";
 import "../../components/global.css";
+import axios from 'axios';
+
 
 const LangPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -15,34 +17,38 @@ const LangPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     const fetchLangData = async () => {
-        try {
-            const response = await fetch(`/api/info/${id}`, { signal: AbortSignal.timeout(5000) });
-            if (!response.ok) throw new Error('Network response failed');
-
-            const result = await response.json();
-            const lang = {
-                id: result.info.ID,
-                name: result.info.Name,
-                shortDescription: result.info.ShortDescription,
-                description: result.info.Description,
-                imgLink: result.info.ImgLink,
-                author: result.info.Author,
-                year: result.info.Year,
-                version: result.info.Version,
-                list: result.info.List,
-                status: result.info.Status,
-            };
-
-            setLangData(lang);
-            setError(null);
-        } catch (error) {
-            console.error('Fetch error or invalid data:', error);
-            setIsMock(true);
-        } finally {
-            setLoading(false);
-        }
+      try {
+        const response = await axios.get(
+          `http://10.0.2.2:3000/api/info/${id}`,
+          {
+            timeout: 5000, // Тайм-аут 5 секунд
+          }
+        );
+    
+        const result = response.data;
+        const lang = {
+          id: result.info.ID,
+          name: result.info.Name,
+          shortDescription: result.info.ShortDescription,
+          description: result.info.Description,
+          imgLink: result.info.ImgLink,
+          author: result.info.Author,
+          year: result.info.Year,
+          version: result.info.Version,
+          list: result.info.List,
+          status: result.info.Status,
+        };
+    
+        setLangData(lang);
+        setError(null);
+      } catch (error) {
+        console.error('Fetch error or invalid data:', error);
+        setIsMock(true);
+      } finally {
+        setLoading(false);
+      }
     };
-
+    
     const breadcrumbsData = [
         { label: ROUTE_LABELS.LIST, path: ROUTES.LIST },
         { label: langData ? langData.name : "Язык", path: ROUTES.LANG + id }

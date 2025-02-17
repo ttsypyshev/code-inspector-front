@@ -1,3 +1,227 @@
+/* Writing Code Section */
+.writing-code {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Header Styles */
+.header,
+.icon-btn-back,
+.background-btn-back {
+    position: absolute;
+}
+
+.header {
+    width: 70px;
+    height: 70px;
+    top: 58px;
+    left: 89px;
+    border-radius: var(--border-radius-sm);
+}
+
+.icon-btn-back {
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    left: 10px;
+}
+
+.background-btn-back {
+    width: 70px;
+    height: 70px;
+    top: 0;
+    left: 0;
+    background-color: var(--background-color-lightest);
+    border-radius: var(--border-radius-xs);
+}
+
+/* Code Tree Styles */
+.tree {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 180px;
+    align-items: flex-start;
+    max-width: 1900px;
+    margin: 0 auto;
+}
+
+ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.code {
+    width: 1150px;
+    background-color: var(--background-color-dark);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+/* Language Container */
+.lang-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon-lang {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin: 5px 10px;
+}
+
+.text-lang {
+    font-family: var(--font-family-default);
+    color: var(--text-color-light);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-lg);
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Code Background */
+.background-code {
+    background-color: var(--background-color-code);
+    border: 1px solid var(--text-color-light);
+    border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    position: relative;
+    min-height: 150px;
+}
+
+/* Code Editor (Including Line Numbers) */
+.code-editor {
+    display: flex;
+    width: 100%;
+}
+
+.line-numbers {
+    font-family: var(--font-family-mono);
+    color: var(--text-color-light);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-small);
+    text-align: right;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.line-number {
+    padding-right: 10px;
+}
+
+.field-write-code {
+    flex-grow: 1;
+    background-color: transparent;
+    font-family: var(--font-family-mono);
+    color: var(--text-color-light);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-small);
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: auto;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+/* Tech Info Text */
+.text-tech-info {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    color: var(--text-color-light);
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    text-align: right;  
+}
+
+.error-message {
+    margin-top: 10px;
+}
+
+.success-message {
+    margin-top: 10px;
+}
+
+/* Header Styles */
+h1 {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-lg);
+    font-weight: var(--font-weight-bold);
+    margin: 0;
+}
+
+/* Info Box */
+.info-box {
+    position: sticky;
+    top: 20px;
+    margin-top: 20px;
+    left: 95%;
+    transform: translateX(-50%);
+    width: 250px;
+    background-color: var(--background-color-medium);
+    border-radius: var(--border-radius-sm);
+    padding: 15px;
+    z-index: 1000;
+}
+
+/* Project Buttons */
+.project-btn {
+    width: 200px;
+    height: 40px;
+    margin-left: 5px;
+    background-color: var(--background-color-light);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+    border: 1px solid var(--border-color-dark);
+}
+
+.save-project-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.project-btn:hover {
+    transform: scale(1.05);
+    border: none;
+    outline: none;
+}
+
+.save-project-btn:hover {
+    background-color: var(--background-color-green);
+}
+
+.delete-project-btn:hover {
+    background-color: var(--background-color-red);
+}
+
+/* Button Text Styles */
+.save-project-button-text,
+.delete-project-button-text {
+    font-family: var(--font-family-default);
+    color: var(--text-color-dark);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-large);
+    white-space: nowrap;
+}
+
+.project-info {
+    word-wrap: break-word; /* или используйте word-break: break-word; */
+}
+
 /* Адаптация для мобильных устройств */
 @media screen and (max-width: 768px) {
     .writing-code {
@@ -10,15 +234,41 @@
         top: 100px;
     }
 
+    .info-box {
+        position: relative;
+        width: 70%;
+        max-width: 600px;
+        background-color: var(--background-color-dark);
+        padding: 20px;
+        border-radius: var(--border-radius-sm);
+        margin: 20px auto;
+        margin-bottom: 100px;
+        text-align: left;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        color: var(--text-color-light);
+        flex-direction: column;
+        left: 0%;
+        transform: translateX(0%);
+    }
+
+    .code-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
     .code {
         width: 100%;
-        max-width: 100%;
+        /* max-width: 600px; */
         margin-bottom: 20px;
+        background-color: var(--background-color-dark);
+        border-radius: var(--border-radius-sm);
     }
 
     .background-code {
         flex-direction: column;
-        padding: 5px;
+        padding: 10px;
     }
 
     .code-editor {
@@ -40,25 +290,31 @@
         font-size: 12px;
     }
 
-    .info-box {
-        position: static;
-        width: 100%;
-        max-width: 100%;
-        margin-top: 10px;
-        padding: 10px;
-    }
-
     .project-title {
         font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
     }
 
     .project-info {
         font-size: 14px;
+        margin-bottom: 5px;
     }
 
     .project-btn {
         width: 100%;
-        margin: 5px 0;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: var(--border-radius-sm);
+        background-color: var(--background-color-medium);
+        color: var(--text-color-light);
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .project-btn:hover {
+        background-color: var(--background-color-light);
     }
 
     .lang-container {

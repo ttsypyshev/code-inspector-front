@@ -6,6 +6,7 @@ import { RootState } from "../../store/store";
 import "./ProjectPage.css";
 import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
+import axios from 'axios';
 
 const formatDate = (isoString: string | null) => {
     if (!isoString) return "—";
@@ -37,36 +38,40 @@ const ProjectPage: React.FC = () => {
 
     useEffect(() => {
         const fetchProjectData = async () => {
-            try {
-                const response = await fetch(`/api/project/${id}`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `${token}`,
-                    },
-                });
-                const data = await response.json();
-
-                setProjectInfo({
-                    id: data.project.ID, 
-                    creationDate: formatDate(data.project.CreationTime),
-                    formationDate: formatDate(data.project.FormationTime),
-                    status: data.project.Status,
-                    moderatorId: data.project.ModeratorID,
-                    moderatorComment: data.project.ModeratorComment,
-                });
-
-                const updatedFiles = data.files.map((file: any) => ({
-                    id: file.ID,
-                    lang: file.Lang.Name,
-                    code: file.Code,
-                    icon: file.Lang.ImgLink,
-                }));
-
-                setFiles(updatedFiles);
-                console.log("Файлы проекта:", updatedFiles);
-            } catch (error) {
-                console.error("Ошибка при загрузке данных проекта", error);
-            }
+          try {
+            const response = await axios.get(
+              `http://10.0.2.2:3000/api/project/${id}`,
+              {
+                headers: {
+                  "Authorization": `${token}`,
+                },
+                timeout: 5000, // Тайм-аут 5 секунд
+              }
+            );
+        
+            const data = response.data;
+        
+            setProjectInfo({
+              id: data.project.ID,
+              creationDate: formatDate(data.project.CreationTime),
+              formationDate: formatDate(data.project.FormationTime),
+              status: data.project.Status,
+              moderatorId: data.project.ModeratorID,
+              moderatorComment: data.project.ModeratorComment,
+            });
+        
+            const updatedFiles = data.files.map((file: any) => ({
+              id: file.ID,
+              lang: file.Lang.Name,
+              code: file.Code,
+              icon: file.Lang.ImgLink,
+            }));
+        
+            setFiles(updatedFiles);
+            console.log("Файлы проекта:", updatedFiles);
+          } catch (error) {
+            console.error("Ошибка при загрузке данных проекта", error);
+          }
         };
 
         fetchProjectData();
@@ -96,61 +101,66 @@ const ProjectPage: React.FC = () => {
     };
 
     const handleSubmitProject = async () => {
-        const fileCodes: { [key: string]: string } = {};
-        files.forEach((file) => {
-            fileCodes[file.id] = file.code;
-        });
+      const fileCodes: { [key: string]: string } = {};
+      files.forEach((file) => {
+        fileCodes[file.id] = file.code;
+      });
     
-        try {
-            const response = await fetch(`/api/project/${id}/submit`, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ file_codes: fileCodes }),
-            });
+      try {
+        const response = await axios.put(
+          `http://10.0.2.2:3000/api/project/${id}/submit`,
+          { file_codes: fileCodes },
+          {
+            headers: {
+              "Authorization": `${token}`,
+              "Content-Type": "application/json",
+            },
+            timeout: 5000, // Тайм-аут 5 секунд
+          }
+        );
     
-            if (response.ok) {
-                dispatch(setProjectID(null));
-                setSuccessMessage("Проект успешно сохранен!");
-                setErrorMessage(null); 
-                navigate(ROUTES.LIST); // Redirect to the list page after successful submission
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message || "Ошибка при сохранении проекта");
-                setSuccessMessage(null);
-            }
-        } catch (error) {
-            console.error("Ошибка при отправке проекта", error);
-            setErrorMessage("Произошла ошибка при сохранении проекта");
-            setSuccessMessage(null);
+        if (response.status === 200) {
+          dispatch(setProjectID(null));
+          setSuccessMessage("Проект успешно сохранен!");
+          setErrorMessage(null);
+          navigate(ROUTES.LIST); // Redirect to the list page after successful submission
+        } else {
+          setErrorMessage(response.data.message || "Ошибка при сохранении проекта");
+          setSuccessMessage(null);
         }
+      } catch (error) {
+        console.error("Ошибка при отправке проекта", error);
+        setErrorMessage("Произошла ошибка при сохранении проекта");
+        setSuccessMessage(null);
+      }
     };
 
     const handleDeleteProject = async () => {
-        try {
-            const response = await fetch(`/api/project/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `${token}`,
-                },
-            });
-
-            if (response.ok) {
-                dispatch(setProjectID(null));
-                setSuccessMessage("Проект успешно удален!");
-                setErrorMessage(null); 
-                navigate(ROUTES.LIST); // Redirect to the list page after successful deletion
-            } else {
-                setErrorMessage("Невозможно удалить проект");
-                setSuccessMessage(null); 
-            }
-        } catch (error) {
-            console.error("Ошибка при удалении проекта", error);
-            setErrorMessage("Произошла ошибка при удалении проекта");
-            setSuccessMessage(null);
+      try {
+        const response = await axios.delete(
+          `http://10.0.2.2:3000/api/project/${id}`,
+          {
+            headers: {
+              "Authorization": `${token}`,
+            },
+            timeout: 5000, // Тайм-аут 5 секунд
+          }
+        );
+    
+        if (response.status === 200) {
+          dispatch(setProjectID(null));
+          setSuccessMessage("Проект успешно удален!");
+          setErrorMessage(null);
+          navigate(ROUTES.LIST); // Redirect to the list page after successful deletion
+        } else {
+          setErrorMessage("Невозможно удалить проект");
+          setSuccessMessage(null);
         }
+      } catch (error) {
+        console.error("Ошибка при удалении проекта", error);
+        setErrorMessage("Произошла ошибка при удалении проекта");
+        setSuccessMessage(null);
+      }
     };
 
     const breadcrumbsData = [

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from 'react-redux';
 import { setProjectID } from '../../store/slices/userSlice';
+import axios from 'axios';
 
 interface LangItemProps {
   lang: Lang;
@@ -41,27 +42,34 @@ const LangItem: React.FC<LangItemProps> = ({ lang, onImageLoad, onAddToCart }) =
 
   const handleAddToProject = async () => {
     setStatus('');
+
+    const requestData = {
+        id_lang: lang.id,
+    };
+    
+    console.log("Отправляемый JSON:", JSON.stringify(requestData));
     try {
-        const response = await fetch("/api/info/add-service", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${token}`,
-            },
-            body: JSON.stringify({ id_lang: lang.id }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          const projectId = data.projectID;
-
-          dispatch(setProjectID(projectId));
-
-          setStatus('success-btn');
-          onAddToCart();
-        } else {
-            setStatus('error-btn');
-        }
+        const response = await axios.post(
+            "http://10.0.2.2:3000/api/info/add-service", 
+            requestData, 
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `${token}`,
+                },
+                timeout: 5000,
+            }
+        );
+    
+        console.log("Принимаемый json:", JSON.stringify(response.data));
+    
+        const { projectID } = response.data;
+    
+        dispatch(setProjectID(projectID));
+    
+        setStatus('success-btn');
+        onAddToCart();
     } catch (error) {
         console.error('Ошибка при добавлении в проект:', error);
         setStatus('error-btn');

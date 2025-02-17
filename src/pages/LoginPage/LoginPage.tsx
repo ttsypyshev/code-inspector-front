@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { setUser, setToken } from "../../store/slices/userSlice.ts";
 import { ROUTES } from "../../Routes.tsx";
 import axios from "axios";
-import {dest_api} from "../../../target_config.ts"
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: "", password: "" });
@@ -36,6 +35,7 @@ const Login = () => {
                         "Content-Type": "application/json",
                         "Accept": "application/json"
                     },
+                    timeout: 5000,
                 }
             );            
             

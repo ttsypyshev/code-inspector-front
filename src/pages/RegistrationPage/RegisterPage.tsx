@@ -2,6 +2,7 @@ import "./RegisterPage.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../Routes.tsx";
+import axios from 'axios';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -18,30 +19,35 @@ const Register = () => {
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        try {
-            const response = await fetch("/api/user/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: formData.email,
-                    login: formData.username,
-                    password: formData.password,
-                    name: formData.name, // передаем имя, если оно указано
-                }),
-            });
-
-            if (response.ok) {
-                navigate(ROUTES.AUTH);
-            } else {
-                setError("Произошла ошибка при регистрации");
-            }
-        } catch (err) {
-            setError("Не удалось подключиться к серверу. Попробуйте позже.");
+      e.preventDefault();
+    
+      try {
+        const response = await axios.post(
+          "http://10.0.2.2:3000/api/user/register", // Полный URL
+          {
+            email: formData.email,
+            login: formData.username,
+            password: formData.password,
+            name: formData.name, // передаем имя, если оно указано
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+            timeout: 5000, // Тайм-аут 5 секунд
+          }
+        );
+    
+        if (response.status === 200) {
+          navigate(ROUTES.AUTH);
+        } else {
+          setError("Произошла ошибка при регистрации");
         }
+      } catch (err) {
+        console.error(err);
+        setError("Не удалось подключиться к серверу. Попробуйте позже.");
+      }
     };
 
     return (

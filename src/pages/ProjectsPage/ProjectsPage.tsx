@@ -6,6 +6,7 @@ import './ProjectsPage.css';
 import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import StatusModal from "../../components/StatusModal/SattusModal.tsx";
+import axios from 'axios';
 
 interface Project {
     id: number;
@@ -48,45 +49,47 @@ const ProjectsPage = () => {
     useEffect(() => {
         if (!token) return;
 
-        // Function to fetch projects
         const fetchProjects = async () => {
-            try {
-                const params = new URLSearchParams();
-                if (startDate) params.append("start_date", startDate);
-                if (endDate) params.append("end_date", endDate);
-                if (status !== "all") params.append("status", status);
-
-                const response = await fetch(`/api/project?${params.toString()}`, {
-                    headers: { Authorization: token },
-                });
-
-                if (!response.ok) throw new Error("Failed to fetch projects");
-
-                const data = await response.json();
-
-                if (!data.projects || !Array.isArray(data.projects)) {
-                    console.error("Expected array in 'projects', got:", data);
-                    throw new Error("Invalid data format");
-                }
-
-                setProjects(
-                    data.projects.map((project: any) => ({
-                        id: project.ID,
-                        CreatorID: project.UserID,
-                        Creator: project.User.Name || project.User.login,
-                        CreationTime: formatDate(project.CreationTime),
-                        FormationTime: formatDate(project.FormationTime),
-                        CompletionTime: formatDate(project.CompletionTime),
-                        Status: project.Status,
-                        Moderator: project.Moderator ? project.Moderator.name : "—",
-                        ModeratorComment: project.ModeratorComment || "—",
-                        qr: project.qr,
-                    }))
-                );
-            } catch (error) {
-                console.error(error);
-                setProjects([]);
+          try {
+            const params = new URLSearchParams();
+            if (startDate) params.append("start_date", startDate);
+            if (endDate) params.append("end_date", endDate);
+            if (status !== "all") params.append("status", status);
+        
+            const response = await axios.get(
+              `http://10.0.2.2:3000/api/project?${params.toString()}`,
+              {
+                headers: { Authorization: token },
+              }
+            );
+        
+            if (response.status !== 200) throw new Error("Failed to fetch projects");
+        
+            const data = response.data;
+        
+            if (!data.projects || !Array.isArray(data.projects)) {
+              console.error("Expected array in 'projects', got:", data);
+              throw new Error("Invalid data format");
             }
+        
+            setProjects(
+              data.projects.map((project: any) => ({
+                id: project.ID,
+                CreatorID: project.UserID,
+                Creator: project.User.Name || project.User.login,
+                CreationTime: formatDate(project.CreationTime),
+                FormationTime: formatDate(project.FormationTime),
+                CompletionTime: formatDate(project.CompletionTime),
+                Status: project.Status,
+                Moderator: project.Moderator ? project.Moderator.name : "—",
+                ModeratorComment: project.ModeratorComment || "—",
+                qr: project.qr,
+              }))
+            );
+          } catch (error) {
+            console.error(error);
+            setProjects([]);
+          }
         };
 
         // Start polling every 10 seconds (10000 ms)
@@ -106,33 +109,39 @@ const ProjectsPage = () => {
         return true;
     });
 
-    // Функция для изменения статуса проекта
     const changeStatus = async (status: string, comment: string) => {
-        if (!selectedProjectId) return;
-
-        const response = await fetch(`/api/project/${selectedProjectId}/complete`, {
-            method: "PUT",
+      if (!selectedProjectId) return;
+    
+      try {
+        const response = await axios.put(
+          `http://10.0.2.2:3000/api/project/${selectedProjectId}/complete`,
+          {
+            status,
+            comment,
+          },
+          {
             headers: {
-                Authorization: `${token}`,
-                "Content-Type": "application/json",
+              Authorization: `${token}`,
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                status,
-                comment,
-            }),
-        });
-
-        if (response.ok) {
-            setProjects((prevProjects) =>
-                prevProjects.map((project) =>
-                    project.id === selectedProjectId
-                        ? { ...project, Status: status, ModeratorComment: comment }
-                        : project
-                )
-            );
+            timeout: 5000, // Тайм-аут 5 секунд
+          }
+        );
+    
+        if (response.status === 200) {
+          setProjects((prevProjects) =>
+            prevProjects.map((project) =>
+              project.id === selectedProjectId
+                ? { ...project, Status: status, ModeratorComment: comment }
+                : project
+            )
+          );
         } else {
-            console.error("Failed to change project status");
+          console.error("Failed to change project status");
         }
+      } catch (error) {
+        console.error("Ошибка при изменении статуса проекта", error);
+      }
     };
 
     // Открыть модальное окно

@@ -4,6 +4,7 @@ import { RootState } from "../../store/store";
 import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import './EditLangsPage.css'
+import axios from 'axios';
 
 interface Language {
   id: number;
@@ -36,14 +37,18 @@ const EditLanguagesPage = () => {
 
     const fetchLanguages = async () => {
       try {
-        const response = await fetch("/api/info", {
-          headers: { Authorization: `${token}` },
-        });
-        if (!response.ok) throw new Error("Failed to fetch languages");
-        const data = await response.json();
-        console.log("Fetched data:", data);
-
-        const transformedLanguages = data.langs.map((lang: any) => ({
+        const response = await axios.get(
+          "http://10.0.2.2:3000/api/info", 
+          {
+            headers: { Authorization: `${token}` },
+            timeout: 5000, // Тайм-аут на 5 секунд
+          }
+        );
+    
+        // Логируем полученные данные
+        console.log("Fetched data:", response.data);
+    
+        const transformedLanguages = response.data.langs.map((lang: any) => ({
           id: lang.ID,
           name: lang.Name,
           short_description: lang.ShortDescription,
@@ -54,10 +59,10 @@ const EditLanguagesPage = () => {
           version: lang.Version,
           list: lang.List || {},
         }));
-
+    
         setLanguages(transformedLanguages);
       } catch (error) {
-        console.error(error);
+        console.error("Ошибка при получении языков:", error);
       }
     };
 
@@ -74,16 +79,22 @@ const EditLanguagesPage = () => {
     if (!newLanguage.name || !newLanguage.short_description || !newLanguage.description) return;
   
     try {
-      const response = await fetch("/api/info", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(newLanguage),
-      });
-      if (!response.ok) throw new Error("Не удалось добавить язык. Попробуйте позже.");
-      const addedLanguage = await response.json();
+      const response = await axios.post(
+        "http://10.0.2.2:3000/api/info",
+        newLanguage,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            Authorization: `${token}`,
+          },
+          timeout: 5000, // Тайм-аут 5 секунд
+        }
+      );
+  
+      if (response.status !== 200) throw new Error("Не удалось добавить язык. Попробуйте позже.");
+  
+      const addedLanguage = response.data;
       setLanguages([...languages, addedLanguage]);
       setNewLanguage({});
       closeAddLanguageModal();
@@ -93,8 +104,6 @@ const EditLanguagesPage = () => {
     }
   };
   
-  
-
   const handleEditLanguage = async () => {
     if (!editingLanguage || !editingLanguage.id) return;
 
@@ -113,15 +122,20 @@ const EditLanguagesPage = () => {
     const updatedLanguage = { ...editingLanguage, list: parsedList };
 
     try {
-      const response = await fetch(`/api/info/${editingLanguage.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(updatedLanguage),
-      });
-      if (!response.ok) throw new Error("Не удалось обновить язык. Пожалуйста, попробуйте снова.");
+      const response = await axios.put(
+        `http://10.0.2.2:3000/api/info/${editingLanguage.id}`,
+        updatedLanguage,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          timeout: 5000, // Тайм-аут 5 секунд
+        }
+      );
+    
+      if (response.status !== 200) throw new Error("Не удалось обновить язык. Пожалуйста, попробуйте снова.");
+    
       setLanguages(languages.map(lang =>
         lang.id === editingLanguage.id ? { ...lang, ...updatedLanguage } : lang
       ));
@@ -135,15 +149,25 @@ const EditLanguagesPage = () => {
 
   const handleUploadImage = async () => {
     if (!selectedImage || selectedLanguageId === null) return;
+    
     const formData = new FormData();
     formData.append("image", selectedImage);
+  
     try {
-      const response = await fetch(`/api/info/${selectedLanguageId}`, {
-        method: "POST",
-        headers: { Authorization: `${token}` },
-        body: formData,
-      });
-      if (!response.ok) throw new Error("Failed to upload image");
+      const response = await axios.post(
+        `http://10.0.2.2:3000/api/info/${selectedLanguageId}`,
+        formData,
+        {
+          headers: {
+            "Authorization": `${token}`,
+            "Content-Type": "multipart/form-data", // Обязательно для отправки формы с файлом
+          },
+          timeout: 5000, // Тайм-аут 5 секунд
+        }
+      );
+  
+      if (response.status !== 200) throw new Error("Не удалось загрузить изображение");
+  
       setSelectedImage(null);
       closeUploadImageModal();
     } catch (error) {
@@ -153,11 +177,16 @@ const EditLanguagesPage = () => {
 
   const handleDeleteLanguage = async (id: number) => {
     try {
-      const response = await fetch(`/api/info/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `${token}` },
-      });
-      if (!response.ok) throw new Error("Failed to delete language");
+      const response = await axios.delete(
+        `http://10.0.2.2:3000/api/info/${id}`,
+        {
+          headers: { Authorization: `${token}` },
+          timeout: 5000, // Тайм-аут 5 секунд
+        }
+      );
+  
+      if (response.status !== 200) throw new Error("Не удалось удалить язык");
+  
       setLanguages(languages.filter(lang => lang.id !== id));
     } catch (error) {
       console.error(error);

@@ -5,6 +5,7 @@ import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store.ts';
 import { setUser } from '../../store/slices/userSlice';
+import axios from 'axios';
 
 type User = {
 	id: string;
@@ -24,6 +25,7 @@ const UserProfilePage: React.FC = () => {
 	const token = useSelector((state: RootState) => state.user.token);
 
 	useEffect(() => {
+		console.log("123", user)
 		if (!user) {
 			setError("Ошибка: Пользователь не найден. Пожалуйста, войдите в систему.");
 		} else {
@@ -36,37 +38,40 @@ const UserProfilePage: React.FC = () => {
 	};
 
 	const handleSave = async () => {
-		if (updatedUser) {
-			try {
-				const response = await fetch('/api/user/update', {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-					"Authorization": `${token}`,
-				},
-				body: JSON.stringify({
-					name: updatedUser.name || '',
-					email: updatedUser.email || '',
-					password: newPassword || '',
-				}),
-				});
-				
-				if (!response.ok) {
-					throw new Error('Ошибка при обновлении данных пользователя');
-				}
-
-				dispatch(setUser(updatedUser));
-
-				alert('Данные пользователя успешно обновлены');
-				
-				setEditMode(false);
-				setNewPassword('');
-			} catch (error) {
-				setError('Произошла ошибка при сохранении');
+	  if (updatedUser) {
+		try {
+		  const response = await axios.put(
+			'http://10.0.2.2:3000/api/user/update',
+			{
+			  name: updatedUser.name || '',
+			  email: updatedUser.email || '',
+			  password: newPassword || '',
+			},
+			{
+			  headers: {
+				'Content-Type': 'application/json',
+				"Authorization": `${token}`,
+			  },
+			  timeout: 5000, // Тайм-аут 5 секунд
 			}
-		} else {
-			setError('Пожалуйста, заполните все поля.');
+		  );
+	
+		  if (response.status !== 200) {
+			throw new Error('Ошибка при обновлении данных пользователя');
+		  }
+	
+		  dispatch(setUser(updatedUser));
+	
+		  alert('Данные пользователя успешно обновлены');
+	
+		  setEditMode(false);
+		  setNewPassword('');
+		} catch (error) {
+		  setError('Произошла ошибка при сохранении');
 		}
+	  } else {
+		setError('Пожалуйста, заполните все поля.');
+	  }
 	};
 
 	const breadcrumbsData = [

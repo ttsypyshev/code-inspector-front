@@ -10,6 +10,7 @@ import LanguageItem from "../../components/LanguageItem/LanguageItem.tsx";
 import Header from "../../components/Header/Header.tsx";
 import { ROUTE_LABELS, ROUTES } from "../../Routes.tsx";
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 const LangListPage = () => {
     const [languages, setLanguages] = useState<Lang[]>([]);
@@ -34,19 +35,21 @@ const LangListPage = () => {
         setError(null);
 
         try {
-            const headers: HeadersInit = {};
+            const headers: any = {};
             if (token) {
                 headers['Authorization'] = `${token}`;
             }
-
-            const response = await fetch(`/api/info?langname=${searchQuery.toLowerCase()}`, {
-                method: 'GET',
-                headers,
-                signal: AbortSignal.timeout(5000),
-            });
-            if (!response.ok) throw new Error("Ошибка сети");
-            const result = await response.json();
-
+        
+            const response = await axios.get(
+                `http://10.0.2.2:3000/api/info?langname=${searchQuery.toLowerCase()}`,
+                {
+                    headers,
+                    timeout: 5000,
+                }
+            );
+        
+            const result = response.data;
+        
             setLanguages(
                 result.langs.map((lang: any) => ({
                     id: lang.ID,
@@ -63,7 +66,7 @@ const LangListPage = () => {
             );
             setCartCount(result.count || 0);
             setIsMock(false);
-        } catch (err) {
+        } catch (err: any) {
             console.error("Fetch error:", err);
             loadMockData();
         } finally {

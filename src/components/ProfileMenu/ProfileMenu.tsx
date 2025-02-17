@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
 import { ROUTES } from "../../Routes.tsx";
 import { logout } from "../../store/slices/userSlice";
+import axios from 'axios';
 
 export const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,64 +24,72 @@ export const ProfileMenu = () => {
     }
 
     try {
-      const response = await fetch(`/api/project/${projectID}`, {
-        method: "DELETE",
-        headers: {
-          "Authorization": `${token}`,
-        },
-      });
-
-      if (response.ok) {
-        console.log("Проект успешно удален!");
-        return true; // Возвращаем true, если проект успешно удален
-      } else { 
-          console.error("Ошибка при удалении проекта");
-          return false; // Возвращаем false в случае других ошибок
-      }
+        const response = await axios.delete(
+            `http://10.0.2.2:3000/api/project/${projectID}`,
+            {
+                headers: {
+                    "Authorization": `${token}`,
+                },
+                timeout: 5000,
+            }
+        );
+    
+        if (response.status === 200) {
+            console.log("Проект успешно удален!");
+            return true; // Возвращаем true, если проект успешно удален
+        } else {
+            console.error("Ошибка при удалении проекта");
+            return false; // Возвращаем false в случае других ошибок
+        }
     } catch (error) {
-      console.error("Ошибка при удалении проекта", error);
-      return false; // Возвращаем false в случае ошибки
+        console.error("Ошибка при удалении проекта", error);
+        return false; // Возвращаем false в случае ошибки
     }
+    
   };
 
   // Функция выхода
   const handleLogout = async () => {
     try {
-      // Попытка удалить проект
-      const isProjectDeleted = await handleDeleteProject();
-      
-      // Если не удалось удалить проект, не разрешаем выйти
-      if (!isProjectDeleted) {
-        alert("Не удалось удалить проект. Вы не можете выйти.");
-        return; // Останавливаем выполнение, не даем пользователю выйти
-      }
-
-      const response = await fetch("/api/user/logout", {
-        method: "POST",
-        headers: {
-          "Authorization": `${token}`,
-        },
-      });
-
-      // Если код ответа 401, это не ошибка, можно удалить данные
-      if (response.status === 401) {
-        // Удаляем данные из localStorage и state, потому что сессия уже завершена
+        // Попытка удалить проект
+        const isProjectDeleted = await handleDeleteProject();
+        
+        // Если не удалось удалить проект, не разрешаем выйти
+        if (!isProjectDeleted) {
+            alert("Не удалось удалить проект. Вы не можете выйти.");
+            return; // Останавливаем выполнение, не даем пользователю выйти
+        }
+    
+        const response = await axios.post(
+            "http://10.0.2.2:3000/api/user/logout",
+            {},
+            {
+                headers: {
+                    "Authorization": `${token}`,
+                },
+                timeout: 5000,
+            }
+        );
+    
+        // Если код ответа 401, это не ошибка, можно удалить данные
+        if (response.status === 401) {
+            // Удаляем данные из localStorage и state, потому что сессия уже завершена
+            dispatch(logout());
+            navigate(ROUTES.HOME);
+            return;
+        }
+    
+        if (response.status !== 200) {
+            throw new Error("Ошибка при выходе");
+        }
+    
+        // Если запрос успешен, удаляем данные из localStorage и state
         dispatch(logout());
+    
+        // Перенаправляем на главную страницу
         navigate(ROUTES.HOME);
-        return;
-      }
-
-      if (!response.ok) {
-        throw new Error("Ошибка при выходе");
-      }
-
-      // Если запрос успешен, удаляем данные из localStorage и state
-      dispatch(logout());
-
-      // Перенаправляем на главную страницу
-      navigate(ROUTES.HOME);
     } catch (error) {
-      alert("Ошибка"); // Показать ошибку, если запрос не прошел
+        alert("Ошибка"); // Показать ошибку, если запрос не прошел
     }
   };
 
