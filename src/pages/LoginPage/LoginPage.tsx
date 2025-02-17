@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser, setToken } from "../../store/slices/userSlice.ts";
 import { ROUTES } from "../../Routes.tsx";
+import axios from "axios";
+import {dest_api} from "../../../target_config.ts"
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: "", password: "" });
@@ -18,47 +20,47 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
     
+        const requestData = {
+            login: formData.username,
+            password: formData.password,
+        };
+        
+        console.log("Отправляемый JSON:", JSON.stringify(requestData));
+        
         try {
-            // Запрос на сервер для получения токена
-            const response = await fetch("/api/user/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    login: formData.username,  // Используем login вместо username
-                    password: formData.password,
-                }),
-                signal: AbortSignal.timeout(5000), // Таймаут для запроса
-            });
+            const response = await axios.post(
+                "http://10.0.2.2:3000/api/user/login",
+                requestData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                }
+            );            
+            
+            console.log("Принимаемый json:", JSON.stringify(response.data))
+                
+            const { access_token, token_type, user } = response.data;
     
-            if (!response.ok) {
-                throw new Error("Неверный юзернейм или пароль");
-            }
-    
-            // Если запрос успешен, получаем токен и данные пользователя
-            const data = await response.json();
-            const { access_token, token_type, user } = data;
-    
-            // Сохраняем токен в Redux
             dispatch(setToken(`${token_type} ${access_token}`));
-
-            // Сохраняем данные пользователя
-            dispatch(setUser({
-                username: user.login,   // Используем login вместо username
-                name: user.name,
-                id: user.id,
-                email: user.email,
-                role: user.role,
-            }));
     
-            // Редирект на другую страницу (например, на главную)
-            navigate(ROUTES.LIST);  // Замените ROUTES.LIST на нужный маршрут
+            dispatch(
+                setUser({
+                    username: user.login,
+                    name: user.name,
+                    id: user.id,
+                    email: user.email,
+                    role: user.role,
+                })
+            );
 
+            navigate(ROUTES.LIST); // Укажите нужный маршрут
         } catch (error) {
+            console.error("Ошибка авторизации:", error);
             setError("Неверный юзернейм или пароль");
         }
-    };
+    };   
 
     return (
         <div className="login-container">

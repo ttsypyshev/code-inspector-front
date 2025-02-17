@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import mkcert from 'vite-plugin-mkcert'
-// import fs from 'fs';
-// import path from 'path';
-import {local_ip, api_proxy_addr, img_proxy_addr, dest_root} from "./target_config"
+
+import {local_ip, api_proxy_addr, img_proxy_addr} from "./target_config"
 
 export default defineConfig({
   server: {

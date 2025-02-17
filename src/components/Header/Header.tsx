@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BreadCrumbs } from '../BreadCrumbs/BreadCrumbs';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
@@ -25,7 +25,13 @@ const Header: React.FC<HeaderProps> = ({ showBreadCrumbs, showBurgerMenu, crumbs
               {showBreadCrumbs && <BreadCrumbs crumbs={crumbs} />}
             </td>
             <td className="burger-menu-container">
-              {showBurgerMenu && <BurgerMenu />}
+              {showBurgerMenu && (
+                <BurgerMenu
+                  showProfileMenu={showProfileMenu} 
+                  showHistory={showHistory} 
+                  showEdit={showEdit} 
+                />
+              )}
             </td>
             <td className="profile-menu-container">
               {showProfileMenu && <ProfileMenu />}
