@@ -23,11 +23,6 @@ export const local_ip = getLocalIP();
 export const api_proxy_addr = `http://${local_ip}:8080`;
 export const img_proxy_addr = `http://${local_ip}:9000`;
 
-// export const local_ip = '10.0.2.2';
-
-// export const api_proxy_addr = `http://${local_ip}:3000/api`;
-// export const img_proxy_addr = `http://${local_ip}:9000`;
-
 export const dest_api = target_tauri ? api_proxy_addr : "api";
 export const dest_img = target_tauri ? img_proxy_addr : "img-proxy";
 export const dest_root = target_tauri ? "" : "/code-inspector-front";
