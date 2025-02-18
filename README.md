@@ -27,6 +27,9 @@ cd code-inspector-front
 ```bash
 npm install
 ```
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
 
 ### 3. Запуск проекта
 ```bash
